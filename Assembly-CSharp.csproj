@@ -6,7 +6,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{06AFEFD0-65EA-511E-271E-2B203BC81FB8}</ProjectGuid>
+    <ProjectGuid>{E0E59854-7D9B-4319-964D-28C99D973D0E}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp</AssemblyName>
@@ -46,12 +46,23 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\Funnel\Funnel.cs" />
+     <Compile Include="Assets\Scripts\PhysicsParticles.cs" />
+     <None Include="Assets\Plugins\SteamVR\Resources\SteamVR_Fade.shader" />
+     <None Include="Assets\Plugins\SteamVR\Resources\SteamVR_ClearAll.shader" />
+     <None Include="Assets\Plugins\SteamVR\InteractionSystem\Hints\Shaders\ControllerButtonHints.shader" />
+     <None Include="Assets\Plugins\SteamVR\InteractionSystem\Teleport\Shaders\Highlight.shader" />
      <None Include="Assets\Plugins\Syphon\Materials\Resources\AlphaOne.shader" />
-     <None Include="Assets\Funnel\Shader\Gamma.shader" />
+     <None Include="Assets\Plugins\Funnel\Shader\Gamma.shader" />
      <None Include="Assets\Plugins\Syphon\Materials\Resources\Unlit-Safe.shader" />
+     <None Include="Assets\Plugins\SteamVR\Resources\SteamVR_SphericalProjection.shader" />
+     <None Include="Assets\Plugins\SteamVR\Resources\SteamVR_AlphaOut.shader" />
+     <None Include="Assets\Plugins\SteamVR\readme.txt" />
+     <None Include="Assets\Plugins\SteamVR\InteractionSystem\Core\Shaders\Silhouette.shader" />
+     <None Include="Assets\Plugins\SteamVR\Resources\SteamVR_ColorOut.shader" />
+     <None Include="Assets\Plugins\SteamVR\InteractionSystem\Core\Shaders\SeeThru.shader" />
+     <None Include="Assets\Plugins\SteamVR\InteractionSystem\Readme_InteractionSystem.txt" />
  <Reference Include="Assembly-UnityScript-firstpass">
- <HintPath>/Users/Blair/Unity/Halogram/Halogram/Library/ScriptAssemblies/Assembly-UnityScript-firstpass.dll</HintPath>
+ <HintPath>/Users/Blair/Unity/IAMHALO/Library/ScriptAssemblies/Assembly-UnityScript-firstpass.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.UI">
  <HintPath>/Applications/Unity_5.5.2f1/Unity.app/Contents/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</HintPath>
@@ -74,7 +85,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="Assembly-CSharp-firstpass.csproj">
-      <Project>{1AF63B89-0FA4-DE4B-C90E-65E20465454C}</Project>      <Name>Assembly-CSharp-firstpass</Name>    </ProjectReference>
+      <Project>{442C00C8-747F-B570-E2F7-65D730F44519}</Project>      <Name>Assembly-CSharp-firstpass</Name>    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

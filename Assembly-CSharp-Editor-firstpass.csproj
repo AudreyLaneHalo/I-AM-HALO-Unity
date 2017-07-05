@@ -6,7 +6,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{48B4FA81-B6E1-614E-947E-13946ECAE6B0}</ProjectGuid>
+    <ProjectGuid>{92718DFF-21FC-7959-E82C-2CB7524D2DF4}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp-Editor-firstpass</AssemblyName>
@@ -47,13 +47,30 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\Plugins\Funnel\Editor\FunnelEditor.cs" />
+     <Compile Include="Assets\Plugins\SteamVR\Editor\SteamVR_Editor.cs" />
+     <Compile Include="Assets\Plugins\SteamVR\Editor\SteamVR_Preferences.cs" />
+     <Compile Include="Assets\Plugins\SteamVR\Editor\SteamVR_RenderModelEditor.cs" />
+     <Compile Include="Assets\Plugins\SteamVR\Editor\SteamVR_Settings.cs" />
+     <Compile Include="Assets\Plugins\SteamVR\Editor\SteamVR_SkyboxEditor.cs" />
+     <Compile Include="Assets\Plugins\SteamVR\Editor\SteamVR_Update.cs" />
      <Compile Include="Assets\Plugins\Syphon\Editor\SyphonEditor.cs" />
      <Compile Include="Assets\Plugins\Syphon\Editor\SyphonHelper.cs" />
+     <None Include="Assets\Plugins\SteamVR\Resources\SteamVR_Fade.shader" />
+     <None Include="Assets\Plugins\SteamVR\Resources\SteamVR_ClearAll.shader" />
+     <None Include="Assets\Plugins\SteamVR\InteractionSystem\Hints\Shaders\ControllerButtonHints.shader" />
+     <None Include="Assets\Plugins\SteamVR\InteractionSystem\Teleport\Shaders\Highlight.shader" />
      <None Include="Assets\Plugins\Syphon\Materials\Resources\AlphaOne.shader" />
      <None Include="Assets\Plugins\Funnel\Shader\Gamma.shader" />
      <None Include="Assets\Plugins\Syphon\Materials\Resources\Unlit-Safe.shader" />
+     <None Include="Assets\Plugins\SteamVR\Resources\SteamVR_SphericalProjection.shader" />
+     <None Include="Assets\Plugins\SteamVR\Resources\SteamVR_AlphaOut.shader" />
+     <None Include="Assets\Plugins\SteamVR\readme.txt" />
+     <None Include="Assets\Plugins\SteamVR\InteractionSystem\Core\Shaders\Silhouette.shader" />
+     <None Include="Assets\Plugins\SteamVR\Resources\SteamVR_ColorOut.shader" />
+     <None Include="Assets\Plugins\SteamVR\InteractionSystem\Core\Shaders\SeeThru.shader" />
+     <None Include="Assets\Plugins\SteamVR\InteractionSystem\Readme_InteractionSystem.txt" />
  <Reference Include="Assembly-UnityScript-firstpass">
- <HintPath>/Users/Blair/Unity/IAMHALO/Halogram/Library/ScriptAssemblies/Assembly-UnityScript-firstpass.dll</HintPath>
+ <HintPath>/Users/Blair/Unity/IAMHALO/Library/ScriptAssemblies/Assembly-UnityScript-firstpass.dll</HintPath>
  </Reference>
  <Reference Include="UnityEditor.Advertisements">
  <HintPath>/Applications/Unity_5.5.2f1/Unity.app/Contents/UnityExtensions/Unity/Advertisements/Editor/UnityEditor.Advertisements.dll</HintPath>
@@ -115,7 +132,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="Assembly-CSharp-firstpass.csproj">
-      <Project>{1AF63B89-0FA4-DE4B-C90E-65E20465454C}</Project>      <Name>Assembly-CSharp-firstpass</Name>    </ProjectReference>
+      <Project>{442C00C8-747F-B570-E2F7-65D730F44519}</Project>      <Name>Assembly-CSharp-firstpass</Name>    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
