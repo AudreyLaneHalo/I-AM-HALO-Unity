@@ -79,6 +79,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\Plugins\Funnel\Funnel.cs" />
+    <Compile Include="Assets\Plugins\KlakSpout\Klak\Spout\Internal\PluginEntry.cs" />
+    <Compile Include="Assets\Plugins\KlakSpout\Klak\Spout\SpoutReceiver.cs" />
+    <Compile Include="Assets\Plugins\KlakSpout\Klak\Spout\SpoutSender.cs" />
     <Compile Include="Assets\Plugins\PlaneScaler.cs" />
     <Compile Include="Assets\Plugins\SteamVR\Extras\SteamVR_GazeTracker.cs" />
     <Compile Include="Assets\Plugins\SteamVR\Extras\SteamVR_LaserPointer.cs" />
@@ -194,6 +197,8 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Plugins\Funnel\Shader\Gamma.shader" />
+    <None Include="Assets\Plugins\KlakSpout\Klak\Spout\Internal\Resources\Fixup.cginc" />
+    <None Include="Assets\Plugins\KlakSpout\Klak\Spout\Internal\Resources\Fixup.shader" />
     <None Include="Assets\Plugins\SteamVR\InteractionSystem\Core\Shaders\SeeThru.shader" />
     <None Include="Assets\Plugins\SteamVR\InteractionSystem\Core\Shaders\Silhouette.shader" />
     <None Include="Assets\Plugins\SteamVR\InteractionSystem\Hints\Shaders\ControllerButtonHints.shader" />
