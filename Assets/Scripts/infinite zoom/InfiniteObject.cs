@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace ContinuousZoom
+namespace InfiniteZoom
 {
 	[System.Serializable]
-	public class ZoomObject
+	public class ZoomLevel
 	{
 		public GameObject prefab;
 		public float zoomLocation;
@@ -30,8 +30,8 @@ namespace ContinuousZoom
 			}
 		}
 
-		InifiniteObject inifiniteObject;
-		public void SetInfiniteObject (InifiniteObject _inifiniteObject)
+		InfiniteObject inifiniteObject;
+		public void SetInfiniteObject (InfiniteObject _inifiniteObject)
 		{
 			inifiniteObject = _inifiniteObject;
 		}
@@ -93,10 +93,10 @@ namespace ContinuousZoom
 		}
 	}
 
-	public class InifiniteObject : MonoBehaviour 
+	public class InfiniteObject : MonoBehaviour 
 	{
 		public float startZoom;
-		public List<ZoomObject> objects;
+		public List<ZoomLevel> levels;
 
 		[SerializeField]
 		float _currentZoom = -1f;
@@ -120,8 +120,16 @@ namespace ContinuousZoom
 						_currentZoom = maxZoom;
 					}
 
-					UpdateZoomLevel();
+					UpdateZoomLevels();
 				}
+			}
+		}
+
+		void UpdateZoomLevels ()
+		{
+			foreach (ZoomLevel level in levels)
+			{
+				level.Update();
 			}
 		}
 
@@ -129,7 +137,7 @@ namespace ContinuousZoom
 		{
 			get
 			{
-				return objects[0].minZoom;
+				return levels[0].minZoom;
 			}
 		}
 
@@ -137,25 +145,17 @@ namespace ContinuousZoom
 		{
 			get
 			{
-				return objects[objects.Count - 1].zoomLocation;
+				return levels[levels.Count - 1].zoomLocation;
 			}
 		}
 
 		void Start ()
 		{
-			foreach (ZoomObject obj in objects)
+			foreach (ZoomLevel level in levels)
 			{
-				obj.SetInfiniteObject( this );
+				level.SetInfiniteObject( this );
 			}
 			currentZoom = startZoom;
-		}
-
-		void UpdateZoomLevel ()
-		{
-			foreach (ZoomObject obj in objects)
-			{
-				obj.Update();
-			}
 		}
 
 		void Update () // for testing
