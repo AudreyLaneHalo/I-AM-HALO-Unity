@@ -22,7 +22,6 @@ public class InputManager : MonoBehaviour
 
 	public void Zoom (float delta)
 	{
-		Debug.Log( delta );
 		infiniteObject.currentZoom += delta;
 	}
 }

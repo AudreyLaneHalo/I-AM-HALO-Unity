@@ -8,13 +8,15 @@ namespace InfiniteZoom
 	public class ZoomLevel
 	{
 		public GameObject prefab;
-		public float zoomLocation;
-		public float zoomRange = 2f;
 		public Vector2 scaleRange = new Vector2( 0.01f, 100f );
 
-		Vector2 logScaleRange;
+        [HideInInspector]
+        public int index;
+        float zoomRange = 2f;
+        Vector2 logScaleRange;
+        InfiniteObject inifiniteObject;
 
-		GameObject _instance;
+        GameObject _instance;
 		public GameObject instance
 		{
 			get
@@ -30,9 +32,9 @@ namespace InfiniteZoom
 			}
 		}
 
-		InfiniteObject inifiniteObject;
-		public void SetInfiniteObject (InfiniteObject _inifiniteObject)
+		public void Setup (int _index, InfiniteObject _inifiniteObject)
 		{
+            index = _index;
 			inifiniteObject = _inifiniteObject;
 		}
 
@@ -40,7 +42,7 @@ namespace InfiniteZoom
 		{
 			get
 			{
-				return zoomLocation - zoomRange / 2f ;
+				return index - zoomRange / 2f ;
 			}
 		}
 
@@ -48,7 +50,7 @@ namespace InfiniteZoom
 		{
 			get
 			{
-				float max = zoomLocation + zoomRange / 2f;
+				float max = index + zoomRange / 2f;
 				if (max > inifiniteObject.maxZoom)
 				{
 					max = zoomRange / 2f;
@@ -95,7 +97,6 @@ namespace InfiniteZoom
 
 	public class InfiniteObject : MonoBehaviour 
 	{
-		public float startZoom;
 		public List<ZoomLevel> levels;
 
 		[SerializeField]
@@ -145,17 +146,19 @@ namespace InfiniteZoom
 		{
 			get
 			{
-				return levels[levels.Count - 1].zoomLocation;
+				return levels[levels.Count - 1].index;
 			}
 		}
 
 		void Start ()
 		{
+            int i = 1;
 			foreach (ZoomLevel level in levels)
 			{
-				level.SetInfiniteObject( this );
+				level.Setup( i, this );
+                i++;
 			}
-			currentZoom = startZoom;
+			currentZoom = 0;
 		}
 
 		void Update () // for testing
