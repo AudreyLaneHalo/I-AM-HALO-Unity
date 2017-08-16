@@ -5,10 +5,12 @@ using MalbersAnimations.Events;
 
 namespace MalbersAnimations
 {
+    /// <summary>
+    /// Saves the direction and the Amount of damage
+    /// </summary>
     public class DamageValues
     {
         public Vector3 Direction;
-        public Vector3 Theircenter;
         public float Amount = 0;
 
         public DamageValues(Vector3 dir, float amount = 0)
@@ -17,6 +19,7 @@ namespace MalbersAnimations
             Amount = amount;
         }
     }
+
     public partial class Animal
     {
 
@@ -68,20 +71,24 @@ namespace MalbersAnimations
             groundSpeed = 1f,      //Current Ground Speed (Walk=1, Trot=2 , Run =3) 
             slope,                 //Normalized Angle Slope from the MAX Angle Slope 
             idfloat,               //Float values for the animator
-            _Height;               //Height from the ground to the hip 
+            _Height,               //Height from the ground to the hip 
+            CurrentAttackDelay = 0;//The time the Attack occurred
 
         protected int
             idInt = 1,             //Integer values for the animator      
             actionID = -1,         //Every Actions has an ID this combined with the action bool will activate an action animation
-            tired;                 //counter to go to SleepMode(Time OUT) 
+            PerformanceID,
+           
+            tired;                 //Counter to go to SleepMode (Time OUT) 
+        
         #endregion
         
 
         #region Inspector Entries
         
-        public int  animalTypeID;
+      [SerializeField]  public int animalTypeID;
 
-        public LayerMask GroundLayer;
+        public LayerMask GroundLayer = new LayerMask();
         public Ground StartSpeed = Ground.walk;
         public float height = 1f;
         public float WalkSpeed = 1f;
@@ -89,7 +96,7 @@ namespace MalbersAnimations
         public float RunSpeed = 1f;
         public float TurnSpeed = 0f;
 
-        public float movementS1 = 1, movementS2=2, movementS3=3; //IMPORTANT this are the values for the Animator Locomotion Blend Tree when the velocity is changed (Ex. Horse has 5 velocities)
+        public float movementS1 = 1, movementS2 = 2, movementS3 = 3; //IMPORTANT this are the values for the Animator Locomotion Blend Tree when the velocity is changed (Ex. Horse has 5 velocities)
 
         
         [Range(0f, 90f)]
@@ -99,10 +106,23 @@ namespace MalbersAnimations
         public float SnapToGround = 20f;
         public float FallRayDistance = 0.15f;
         public bool swapSpeed;
-
+        public bool SlowSlopes = true;
         public float waterLine = 0f;
         public float swimSpeed = 1f;
         public float swimTurn = 0f;
+        public float damageDelay = 0.2f;   //Time before can aply damagage again
+        public float attackDelay = 0.5f;
+
+        //public int
+        //    WaterRayIterations = 1,
+        //    AlingRayIterations = 1,
+        //    FallRayIterations = 1;
+
+        //private int
+        //    WaterRayCounter,
+        //    AlingRayCounter,
+        //    FallRayCounter;
+
         #endregion
 
         [SerializeField] public float life = 100;
@@ -137,22 +157,26 @@ namespace MalbersAnimations
 
 
         #region Events
-        public UnityEvent OnGetDamaged;
-        public UnityEvent OnKilled;
-        public UnityEvent OnJump;
-        public UnityEvent OnFall;
         public UnityEvent OnAttack;
+        public UnityEvent OnGetDamaged;
+        public UnityEvent OnDeathE;
+        //public UnityEvent OnJump;
+        //public UnityEvent OnFall;
         #endregion
 
         #region Properties
         /// <summary>
-        /// Current Animal Speed
+        /// Current Animal Speed in numbers, 1 = walk 2 = trot 3 = run 
         /// </summary>
         public float GroundSpeed
         {
             get { return groundSpeed; }
         }
 
+
+        /// <summary>
+        /// Speed from the Vertical input multiplied by the speeds inputs(Walk Trot Run) this is the value thats goes to the Animator, is not the actual Speed of the animals
+        /// </summary>
         public float Speed
         {
             get { return speed; }
@@ -163,11 +187,18 @@ namespace MalbersAnimations
             get { return direction; }
         }
 
+        /// <summary>
+        /// Return is the Speed Has Changed
+        /// </summary>
         public bool SpeedHasChanged
         {
             get { return speed1 || speed2 || speed3; }
         }
 
+
+        /// <summary>
+        /// True if the Animals is in any falling State
+        /// </summary>
         public bool IsFalling
         {
             get { return _currentState.IsTag("Fall"); }
@@ -179,6 +210,9 @@ namespace MalbersAnimations
             get { return maxHeight; }
         }
 
+        /// <summary>
+        /// Amount of Idle acumulated if the animals is not moving, if Tired is greater than GotoSleep the animal will go to the sleep state.
+        /// </summary>
         public int Tired
         {
             set { tired = value; }
@@ -189,22 +223,35 @@ namespace MalbersAnimations
         {
             get { return isInWater; }
         }
+
         public bool Speed1
         {
             get { return speed1; }
-            set { speed1 = value; }
+            set
+            {
+                speed1 = value;
+                if (speed1) speed2 = speed3 = false;
+            }
         }
 
         public bool Speed2
         {
             get { return speed2; }
-            set { speed2 = value; }
+            set
+            {
+                speed2 = value;
+                if (speed2) speed1 = speed3 = false;
+            }
         }
 
         public bool Speed3
         {
             get { return speed3; }
-            set { speed3 = value; }
+            set
+            {
+                speed3 = value;
+                if (speed3) speed2 = speed1 = false;
+            }
         }
 
         public bool Jump
@@ -234,12 +281,16 @@ namespace MalbersAnimations
             get { return damaged; }
             set { damaged = value; }
         }
+
         public bool Fly
         {
             get { return fly; }
             set { fly = value; }
         }
 
+        /// <summary>
+        /// If set to true the animal will die
+        /// </summary>
         public bool Death
         {
             get { return death; }
@@ -328,6 +379,9 @@ namespace MalbersAnimations
             get { return RigidbodyConstraints.FreezeRotation | RigidbodyConstraints.FreezePositionY; }
         }
 
+        /// <summary>
+        /// Direction the animal should move
+        /// </summary>
         public Vector3 MovementAxis
         {  
             get { return movementAxis; }

@@ -24,10 +24,15 @@ namespace MalbersAnimations
         // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
         override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
-            _audio = animator.transform.root.GetComponent<AudioSource>();
+            _audio = animator.GetComponent<AudioSource>();
 
+            if (!_audio)
+            {
+                _audio = animator.gameObject.AddComponent<AudioSource>();
+            }
+            _audio.spatialBlend = 1;
             if (playOnEnter && _audio)
-                PlaySound(animator);
+                PlaySound();
         }
 
         // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
@@ -37,12 +42,17 @@ namespace MalbersAnimations
             {
                 if (stateInfo.normalizedTime > NormalizedTime && !_audio.isPlaying)
                 {
-                    PlaySound(animator);
+                    PlaySound();
                 }
             }
         }
 
-        void PlaySound(Animator animator)
+        public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+        {
+            //if (_audio) _audio.Stop();
+        }
+
+        public virtual void PlaySound()
         {
             if (_audio)
             {
@@ -51,7 +61,7 @@ namespace MalbersAnimations
                     _audio.clip = sounds[Random.Range(0, sounds.Length)];
                     _audio.pitch = pitch;
                     _audio.volume = volume;
-                    _audio.PlayOneShot(_audio.clip);
+                    _audio.Play();
                 }
             }
         }

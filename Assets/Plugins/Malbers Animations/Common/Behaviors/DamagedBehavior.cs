@@ -19,12 +19,9 @@ namespace MalbersAnimations
             hitdirection.y = 0;
             forward.y = 0;
 
-            //Get The angle
-            float angle = Vector3.Angle(forward, hitdirection);
-
-            //Calculate witch directions comes the hit
-            if (Vector3.Dot(animal.transform.right, animal.HitDirection) > 0)  left = false;
+            float angle = Vector3.Angle(forward, hitdirection);  //Get The angle
            
+            if (Vector3.Dot(animal.transform.right, animal.HitDirection) > 0)  left = false;  //Calculate witch directions comes the hit
 
             if (left)
             {
@@ -39,7 +36,6 @@ namespace MalbersAnimations
                 else if (angle > 120 && angle <= 180) Side = -1;
             }
 
-            //animal.SetIntID(Side);
             animator.SetInteger(HashIDsAnimal.IDIntHash, Side);
 
             //Reset Hit Direction and Damage bool

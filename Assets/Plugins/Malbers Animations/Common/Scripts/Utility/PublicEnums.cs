@@ -15,11 +15,13 @@
         Void = 4
     }
 
+    //This is mainly use for the Rider Combat Animator nothing more
     public enum WeaponType 
     {
         None = 0,
         Melee = 1,
         Bow = 2,
+        Spear = 3,
         Pistol = 4,
         Rifle = 5
     }
@@ -55,25 +57,24 @@
         AimLeft = -6,
         ReloadRight  = -8,
         ReloadLeft = -9,
-        Hold = -10,
+        Hold = -10,         //Used for the Bow when holding the String
         Equip = -100,
         Unequip = -101,
 
-        //Positive Values are the Attack IDS
+        //Positive Values are the Attack IDs
         
-        //Attacks With Right Hand 
-        Atk_RSide_RHand_Forward = 1,
-        Atk_RSide_RHand_Backward = 2,
+        //Melee
+        Atk_RSide_RHand_Forward = 1,                //Attack Right Side with Right Hand Forward
+        Atk_RSide_RHand_Backward = 2,               //Attack Right Side with Right Hand Backward
 
-        Atk_LSide_RHand_Forward = 3,
-        Atk_LSide_RHand_Backward = 4,
+        Atk_LSide_RHand_Forward = 3,                //Attack Left Side with Right Hand Forwards
+        Atk_LSide_RHand_Backward = 4,               //Attack Left Side with Right Hand Backward
 
-        //Attacks With Right Hand 
-        Atk_RSide_LHand_Forward = 5,
-        Atk_RSide_LHand_Backward = 6,
+        Atk_RSide_LHand_Forward = 5,                //Attack Right Side with Left Hand Forward
+        Atk_RSide_LHand_Backward = 6,               //Attack Right Side with Left Hand Backward
 
-        Atk_LSide_LHand_Forward = 7,
-        Atk_LSide_LHand_Backward = 8,
+        Atk_LSide_LHand_Forward = 7,                //Attack Left Side with Left Hand Forward
+        Atk_LSide_LHand_Backward = 8,               //Attack Left Side with Left Hand Backward
 
         //Ranged
         Fire_Proyectile = 9,

@@ -3,13 +3,15 @@ using System.Collections;
 
 namespace MalbersAnimations
 {
-   
+   //Animal Logic
     public partial class Animal
     {
         void Awake()
         {
             _anim = GetComponent<Animator>();
-            _anim.SetInteger("Type", animalTypeID); //Adjust the layer for the curret animal Type this is of offseting the bones to another pose
+            _anim.SetInteger("Type", animalTypeID);                         //Adjust the layer for the curret animal Type this is of offseting the bones to another pose
+
+            PerformanceSettings();
         }
 
         void Start()
@@ -17,18 +19,42 @@ namespace MalbersAnimations
             SetStart();
         }
 
+
+        ///// <summary>
+        ///// Rays cast was very time consuming when you have 100 animals so lest try not raycast all at the same time
+        ///// </summary>
+        internal void PerformanceSettings()
+        {
+        //    PerformanceID = UnityEngine.Random.Range(100000, 999999);       //Used for the animals Raycasting Stuff
+
+        //    //This will make the animals not raycast at the same time
+        //    WaterRayCounter = (PerformanceID + 0) % WaterRayIterations;
+        //    AlingRayCounter = (PerformanceID + 1) % AlingRayIterations;
+        //     FallRayCounter = (PerformanceID + 2) % FallRayIterations;
+        }
+
+        
+
         protected virtual void SetStart()
         {
             _transform = transform;                         //Set Reference for the transform
             _rigidbody = GetComponent<Rigidbody>(); 
             pivots = GetComponentsInChildren<Pivots>();     //Pivots are Strategically Transform objects use to cast rays used by the animal
             scaleFactor = _transform.localScale.y;          //TOTALLY SCALABE animal
-            groundSpeed = (int)StartSpeed;
+            groundSpeed = (int)StartSpeed;                  //convert to int the Start Speed
             SpeedCount = (int)StartSpeed - 1;
         }
 
-       //Link all Parameters to the animator
-       public virtual void LinkingAnimator(Animator anim_)
+
+
+        /// <summary>
+        /// Link all Parameters to the animator
+        /// </summary>
+        public virtual void LinkingAnimator()
+        {
+            LinkingAnimator(Anim);
+        }
+        public virtual void LinkingAnimator(Animator anim_)
         {
             if (!death)
             {
@@ -38,6 +64,19 @@ namespace MalbersAnimations
                 anim_.SetBool(HashIDsAnimal.shiftHash, shift);
                 anim_.SetBool(HashIDsAnimal.standHash, stand);
                 anim_.SetBool(HashIDsAnimal.jumpHash, jump);
+
+                if (attack1 && attackDelay < Time.time - CurrentAttackDelay)
+                {
+                    CurrentAttackDelay = Time.time;
+                }
+                else
+                {
+                    if (isAttacking)
+                    {
+                        attack1 = false;
+                    }
+                }
+
                 anim_.SetBool(HashIDsAnimal.attack1Hash, attack1);
                 anim_.SetBool(HashIDsAnimal.damagedHash, damaged);
                 anim_.SetBool(HashIDsAnimal.fallHash, fall);
@@ -46,16 +85,13 @@ namespace MalbersAnimations
                 anim_.SetBool(HashIDsAnimal.stunnedHash, stun);
                 anim_.SetBool(HashIDsAnimal.swimHash, swim);
                 anim_.SetInteger(HashIDsAnimal.actionID, actionID);
-                anim_.SetInteger(HashIDsAnimal.IDIntHash, idInt);//////
+                anim_.SetInteger(HashIDsAnimal.IDIntHash, idInt);
             }
             else  //Triggers the Death
             {
-                if (!_currentState.IsTag("Death") && !_anim.GetNextAnimatorStateInfo(0).IsTag("Death"))
-                {
-                    anim_.SetTrigger(HashIDsAnimal.deathHash);
-                    GetComponent<MalbersInput>().enabled = false;
-                   
-                }
+                anim_.SetTrigger(HashIDsAnimal.deathHash);          //Triggers the death animation.
+                OnDeathE.Invoke();                                  //Invoke the animal is death
+                enabled = false;                                    //Disable this Script
             }
         }
 
@@ -105,7 +141,10 @@ namespace MalbersAnimations
             _transform.position = Vector3.Lerp(_transform.position, _transform.position + direction * amount * axis / 5f, Time.deltaTime);
         }
 
-        //Terrain Logic
+
+        /// <summary>
+        /// Terrain Aligment Logic
+        /// </summary>
         protected virtual void FixPosition()
         {
             UpVector = -Physics.gravity;
@@ -119,30 +158,34 @@ namespace MalbersAnimations
 
             backray = frontray = false;
 
-            //Ray From Hip to the ground
-            if (Physics.Raycast(_Hip.GetPivot, -_transform.up, out hit_Hip, scaleFactor * _Hip.multiplier, GroundLayer))
+           // if (AlingRayCounter % AlingRayIterations == 0)
             {
-                if (debug) Debug.DrawRay(hit_Hip.point, hit_Hip.normal * 0.2f, Color.blue);
-                distanceHip = hit_Hip.distance;
+                //Ray From Hip to the ground
+                if (Physics.Raycast(_Hip.GetPivot, -_transform.up, out hit_Hip, scaleFactor * _Hip.multiplier, GroundLayer))
+                {
+                    if (debug) Debug.DrawRay(hit_Hip.point, hit_Hip.normal * 0.2f, Color.blue);
+                    distanceHip = hit_Hip.distance;
 
-                // if the hip ray has a Big angle ignore it
-                if (hit_Hip.normal.y > 0.7)
-                    backray = true;
+                    // if the hip ray has a Big angle ignore it
+                    if (hit_Hip.normal.y > 0.7)
+                        backray = true;
+                }
+                else distanceHip = _Height;
+
+                //Ray From Chest to the ground ***Use the pivot for calculate the ray... but the origin position to calculate the distance
+                if (Physics.Raycast(_Chest.GetPivot, -_transform.up, out hit_Chest, scaleFactor * _Chest.multiplier, GroundLayer))
+                {
+                    if (debug) Debug.DrawRay(hit_Chest.point, hit_Chest.normal * 0.2f, Color.red);
+
+                    distanceChest = Vector3.Distance(_Chest.transform.position, hit_Chest.point);
+
+                    if (hit_Chest.normal.y > 0.7)  // if the hip ray if in Big Angle ignore it
+                        frontray = true;
+                }
+                else distanceChest = _Height;
             }
-            else distanceHip = _Height;
 
-            //Ray From Chest to the ground ***Use the pivot for calculate the ray... but the origin position to calculate the distance
-            if (Physics.Raycast(_Chest.GetPivot, -_transform.up, out hit_Chest, scaleFactor * _Chest.multiplier, GroundLayer))
-            {
-                if (debug) Debug.DrawRay(hit_Chest.point, hit_Chest.normal * 0.2f, Color.red);
-
-                distanceChest = Vector3.Distance(_Chest.transform.position, hit_Chest.point);
-               
-                if (hit_Chest.normal.y > 0.7)  // if the hip ray if in Big Angle ignore it
-                    frontray = true;
-            }
-            else distanceChest = _Height;
-
+            //AlingRayCounter++;
             //───────────────────────────────────────────────Terrain Adjusment───────────────────────────────────────────────────────────────────────────────────
 
             //Calculate the Align vector of the terrain
@@ -229,12 +272,12 @@ namespace MalbersAnimations
             }
         }
 
+        float waterlevel = 0;
+
         protected virtual void Swimming()
         {
             RaycastHit WaterHitCenter;
             Pivots waterPivot = pivots[2];
-
-            float waterlevel = 0;
 
             //Front RayWater Cast
             if (Physics.Raycast(waterPivot.transform.position, -_transform.up, out WaterHitCenter, _Height * pivots[2].multiplier, LayerMask.GetMask("Water")))
@@ -337,8 +380,10 @@ namespace MalbersAnimations
                 if (move.magnitude > 1f) move.Normalize();
                 move = transform.InverseTransformDirection(move);
 
-                move = Vector3.ProjectOnPlane(move, SurfaceNormal);
+                move.y = 0;
+                move = Vector3.ProjectOnPlane(move,-Physics.gravity);
                 turnAmount = Mathf.Atan2(move.x, move.z);
+
                 forwardAmount = move.z;
 
                 movementAxis = new Vector3(turnAmount, 0,Mathf.Abs(forwardAmount));
@@ -363,18 +408,15 @@ namespace MalbersAnimations
                 //Change the speed by shift input toggle
                 if ((SpeedCount % 3) == 0)
                 {
-                    speed1 = true;
-                    speed3 = speed2 = false;
+                    Speed1 = true;
                 }
                 else if ((SpeedCount % 3) == 1)
                 {
-                    speed2 = true;
-                    speed1 = Speed3 = false;
+                    Speed2 = true;
                 }
                 else if ((SpeedCount % 3) == 2)
                 {
-                    speed3 = true;
-                    speed1 = speed2 = false;
+                    Speed3 = true;
                 }
             }
 
@@ -395,7 +437,7 @@ namespace MalbersAnimations
             if (swim) maxspeed = 1;
             if (shift && !swapSpeed) maxspeed++;
             
-            if (slope >= 0.5 && maxspeed > 1) maxspeed--;       //SlowDown When going UpHill
+            if (slope >= 0.5 && maxspeed > 1 && SlowSlopes) maxspeed--;       //SlowDown When going UpHill
           
             if (slope >= 1)     //Prevent to go uphill
             {
@@ -419,12 +461,12 @@ namespace MalbersAnimations
                 stand = false;
             else stand = true;
 
-            if (jump || damaged || stun || fall || swim || fly || isInAir || tired >= GotoSleep)   stand = false; //Stand False when doing some action
+            if (jump || damaged || stun || fall || swim || fly || isInAir || (tired >= GotoSleep && GotoSleep!=0))   stand = false; //Stand False when doing some action
                
             if (tired >= GotoSleep) tired = 0;          //Reset Time Out
         }
 
-        void FixedUpdate()                   //All Raycast Stuff Here
+        void FixedUpdate()                              //All Raycast Stuff Here
         {
             _currentState = _anim.GetCurrentAnimatorStateInfo(0);
             FixPosition();
@@ -434,6 +476,10 @@ namespace MalbersAnimations
 
         void Update()
         {
+            _currentState = _anim.GetCurrentAnimatorStateInfo(0);
+            FixPosition();
+            Falling();
+            Swimming();
             MovementSystem(movementS1,movementS2,movementS3);
         }
 
@@ -441,7 +487,7 @@ namespace MalbersAnimations
         {
             LinkingAnimator(_anim);//Set all Animator Parameters
         }
-
+            
 
 #if UNITY_EDITOR
         /// <summary>
@@ -452,6 +498,7 @@ namespace MalbersAnimations
             if (debug)
             {
                 pivots = GetComponentsInChildren<Pivots>();
+
                 Gizmos.color = Color.magenta;
                 float sc = transform.localScale.y;
 
@@ -462,8 +509,14 @@ namespace MalbersAnimations
                 }
                 if (frontray)
                 {
+                    _fallVector = pivots[1].GetPivot + (_transform.forward.normalized * groundSpeed * FallRayDistance * ScaleFactor);
+
                     Gizmos.color = Color.red;
                     Gizmos.DrawWireSphere(hit_Chest.point, 0.05f * sc);
+#if UNITY_EDITOR
+                    UnityEditor.Handles.color = Color.white;
+                    UnityEditor.Handles.Label(_fallVector, "Fall Ray");
+#endif
                 }
             }
         }

@@ -46,9 +46,13 @@ namespace MalbersAnimations
         }
 
 
-
+        /// <summary>
+        /// Updates the Agents using he animation root motion
+        /// </summary>
         protected void UpdateAgent()
         {
+            if (!agent.isOnNavMesh) return;
+
             agent.nextPosition = transform.position;
 
             if (target != null)
@@ -73,9 +77,9 @@ namespace MalbersAnimations
                 if (OffmeshLinkData.linkType == OffMeshLinkType.LinkTypeManual)
                 {
 
-                    if (OffmeshLinkData.offMeshLink.area == 2) //Jump
+                    if (OffmeshLinkData.offMeshLink.area == 2)          //if the ofmeshh link is a Jump type
                     {
-                        StartCoroutine(ToogleJump(0.2f));
+                        animal.SetJump();
                     }
                 }
             }
@@ -91,32 +95,20 @@ namespace MalbersAnimations
             if (agent.remainingDistance > Run)
             {
                 animal.Speed3 = true;
-                animal.Speed2 = animal.Speed1 = false;
             }
             else if (agent.remainingDistance < Run)
             {
                 animal.Speed2 = true;
-                animal.Speed1 = animal.Speed3 = false;
             }
             else if (agent.remainingDistance < Trot)
             {
                 animal.Speed1 = true;
-                animal.Speed2 = animal.Speed3 = false;
             }
         }
 
         public void SetTarget(Transform target)
         {
             this.target = target;
-        }
-
-       protected IEnumerator ToogleJump(float time)
-        {
-            animal.Jump = true;
-            yield return new WaitForSeconds(time);
-            animal.Jump = false;
-            animal.Speed1 = true;
-            animal.Speed2 = animal.Speed3 = false;
         }
     }
 }

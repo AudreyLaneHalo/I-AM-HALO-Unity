@@ -18,8 +18,8 @@ namespace MalbersAnimations
             ground = true,
             water = true,
             advanced = true,
-            atributes = true;
-        
+            atributes = true,
+        Aevents = true;
 
         GUIStyle currentStyle;
 
@@ -70,11 +70,13 @@ namespace MalbersAnimations
 
             currentStyle = MalbersEditor.StyleGray;
 
+
+            EditorGUI.BeginChangeCheck();
+
             EditorGUILayout.BeginVertical(currentStyle);
             myAnimal.animalTypeID = EditorGUILayout.IntField(new GUIContent("Animal Type ID", "Activate the correct additive Animation to offset the Bones"), myAnimal.animalTypeID);
             EditorGUILayout.EndVertical();
 
-            //────────────────────────────────── Ground ──────────────────────────────────
             EditorGUILayout.BeginVertical(currentStyle);
             EditorGUI.indentLevel++;
             ground = EditorGUILayout.Foldout(ground, "Ground");
@@ -103,6 +105,8 @@ namespace MalbersAnimations
 
             EditorGUILayout.BeginVertical(currentStyle);
             EditorGUI.indentLevel++;
+
+
             advanced = EditorGUILayout.Foldout(advanced, "Advanced");
             EditorGUI.indentLevel--;
             if (ground)
@@ -111,10 +115,12 @@ namespace MalbersAnimations
 
                 EditorGUILayout.BeginVertical(EditorStyles.helpBox);
                 EditorGUILayout.PropertyField(maxAngleSlope, new GUIContent("Max Angle Slope", "Max Angle that the animal can walk"));
+                myAnimal.SlowSlopes = EditorGUILayout.Toggle(new GUIContent("Slow Slopes","if the animal is going uphill: Slow it down"), myAnimal.SlowSlopes);
                 EditorGUILayout.PropertyField(GotoSleep, new GUIContent("Go to Sleep", "Number of Idles before going to sleep (AFK)"));
                 EditorGUILayout.PropertyField(FallRayDistance, new GUIContent("Fall Ray Multiplier", "Multiplier to set the Fall Ray in front of the animal"));
                 EditorGUILayout.PropertyField(SnapToGround, new GUIContent("Snap to ground", "Smoothness to aling to terrain"));
                 EditorGUILayout.PropertyField(swapSpeed, new GUIContent("Swap Speed", "Swap the Speed with Shift instead of 1 2 3"));
+                
 
                 EditorGUILayout.BeginHorizontal();
                 EditorGUILayout.LabelField(new GUIContent("Locomotion Speed", "This are the values for the Animator Locomotion Blend Tree when the velocity is changed"), GUILayout.MaxWidth(120));
@@ -158,14 +164,38 @@ namespace MalbersAnimations
                 EditorGUILayout.PropertyField(life, new GUIContent("Life", "Life Points"));
                 EditorGUILayout.PropertyField(defense, new GUIContent("Defense", "Defense Points"));
                 EditorGUILayout.PropertyField(attackStrength, new GUIContent("Attack", "Attack Points"));
+
+                myAnimal.attackDelay = EditorGUILayout.FloatField(new GUIContent("Attack Delay", "Time for this animal to be able to Attack again. \nGreater number than the animation itself will be ignored"), myAnimal.attackDelay);
+                myAnimal.damageDelay = EditorGUILayout.FloatField(new GUIContent("Damage Delay", "Time for this animal can receive damage again"), myAnimal.damageDelay);
+
                 EditorGUILayout.EndVertical();
             }
             EditorGUILayout.EndVertical();
 
 
             EditorGUILayout.BeginVertical(currentStyle);
+            EditorGUI.indentLevel++;
+            myAnimal.ShowEventsEditor = EditorGUILayout.Foldout(myAnimal.ShowEventsEditor, "Events");
+            EditorGUI.indentLevel--;
+            if (myAnimal.ShowEventsEditor)
+            {
+
+            EditorGUILayout.PropertyField(serializedObject.FindProperty("OnAttack"), new GUIContent("On Attack"));
+            EditorGUILayout.PropertyField(serializedObject.FindProperty("OnGetDamaged"), new GUIContent("On Get Damaged"));
+            EditorGUILayout.PropertyField(serializedObject.FindProperty("OnDeathE"), new GUIContent("On Death"));
+            }
+
+            EditorGUILayout.EndVertical();
+
+            EditorGUILayout.BeginVertical(currentStyle);
             EditorGUILayout.PropertyField(debug, new GUIContent("Debug"));
             EditorGUILayout.EndVertical();
+
+
+            if (EditorGUI.EndChangeCheck())
+            {
+                EditorUtility.SetDirty(target);
+            }
         }
     }
 }

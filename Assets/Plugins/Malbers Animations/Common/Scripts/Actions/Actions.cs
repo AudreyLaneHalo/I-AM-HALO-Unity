@@ -1,8 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-
-
 namespace MalbersAnimations
 {
     [CreateAssetMenu(menuName = "MalbersAnimations/ActionsEmotions")]

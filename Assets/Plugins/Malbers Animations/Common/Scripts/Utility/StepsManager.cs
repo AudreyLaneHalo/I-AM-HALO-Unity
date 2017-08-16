@@ -11,12 +11,14 @@ namespace MalbersAnimations
         public ParticleSystem Dust;
 
         public AudioClip[] clips;
+        [Tooltip("Distance to Instantiate the tracks on a terrain")]
         public float trackOffset = 0.0085f;
 
+        protected bool active = true;
         //Is Called by any of the "StepTrigger" Script on a feet when they collide with the ground.
         public void EnterStep(StepTrigger foot)
         {
-           
+            if (!active) return;
             if (!Tracks) return; //If there
 
             RaycastHit footRay;
@@ -27,7 +29,7 @@ namespace MalbersAnimations
                 foot.StepAudio.Play();  //Play the Audio
 
                 //Put a track and particles
-                if (!foot.HasTrack)  // If we can put a track 
+                if (!foot.HasTrack)  // If we are ready to set a new track
                 {
                     if (Physics.Raycast(foot.transform.position, -transform.up, out footRay, 1, GetComponent<Animal>().GroundLayer))
                     {
@@ -48,6 +50,15 @@ namespace MalbersAnimations
                     }
                 }
             }
+        }
+
+        /// <summary>
+        /// Disable this script, ex.. deactivate when is sleeping or death
+        /// </summary>
+        /// <param name="value"></param>
+        public virtual void EnableSteps(bool value)
+        {
+            active = value;
         }
     }
 }

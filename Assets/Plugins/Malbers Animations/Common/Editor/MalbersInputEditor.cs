@@ -29,6 +29,12 @@ namespace MalbersAnimations
             EditorGUILayout.EndVertical();
 
             EditorGUI.BeginChangeCheck();
+
+            EditorGUILayout.BeginVertical(EditorStyles.helpBox);
+            MInput.Horizontal = EditorGUILayout.TextField( "Horizontal Axis", MInput.Horizontal);
+            MInput.Vertical = EditorGUILayout.TextField( "Vertical Axis",MInput.Vertical);
+            EditorGUILayout.EndVertical();
+
             list.DoLayoutList();
             EditorGUILayout.BeginVertical(EditorStyles.helpBox);
             MInput.cameraBaseInput = EditorGUILayout.Toggle(new GUIContent("Camera Input", "The Character will follow the camera forward axis"), MInput.cameraBaseInput );

@@ -13,10 +13,10 @@ namespace MalbersAnimations
 
         void OnTriggerEnter(Collider other)
         {
-            if (other.transform.root == transform.root) return; //Don't hit yourself
+            if (other.transform.root == transform.root) return;                      //Don't hit yourself
 
-            Animal myAnimal = transform.root.GetComponent<Animal>();
-
+            Animal myAnimal = transform.root.GetComponent<Animal>();                //Get the Animal Component on the Root of this Animal
+            
             Vector3 direction = -other.bounds.center + GetComponent<Collider>().bounds.center;
 
             DamageValues DV = new DamageValues(direction, damageMultiplier * (myAnimal ? myAnimal.attackStrength : 1));
@@ -28,12 +28,13 @@ namespace MalbersAnimations
                 if (myAnimal.IsAttacking)
                 {
                     myAnimal.IsAttacking = false;
-                    other.transform.root.SendMessage("getDamaged", DV, SendMessageOptions.DontRequireReceiver);
+
+                    other.transform.SendMessageUpwards("getDamaged", DV, SendMessageOptions.DontRequireReceiver);
                 }
             }
             else
             {
-                other.transform.root.SendMessage("getDamaged", DV, SendMessageOptions.DontRequireReceiver);
+                other.transform.SendMessageUpwards("getDamaged", DV, SendMessageOptions.DontRequireReceiver);
             }
         }
     }

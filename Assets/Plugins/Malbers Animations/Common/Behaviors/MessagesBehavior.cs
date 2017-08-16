@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
+
 namespace MalbersAnimations
 {
-    public interface IBehaviourListener
+    public interface IAnimatorListener
     {
         /// <summary>
         /// Recieve messages from the Animator State Machine Behaviours
@@ -11,28 +12,13 @@ namespace MalbersAnimations
         void OnAnimatorBehaviourMessage(string message, object value);
 
         /*
-        (This is the Method syntaxis)
-
-        public virtual void OnMessage(string message, object value)
+        public virtual void OnAnimatorBehaviourMessage(string message, object value)
         {
             this.InvokeWithParams(message, value);
         }
         */
     }
 
-    [System.Serializable]
-    public class MesssageItem
-    {
-        public string message;
-        public TypeMessage typeM;
-        public bool boolValue;
-        public int intValue;
-        public float floatValue;
-        public string stringValue;
-
-        public float time;
-        public bool sent;
-    }
     public class MessagesBehavior : StateMachineBehaviour
     {
         public bool UseSendMessage;
@@ -41,12 +27,12 @@ namespace MalbersAnimations
         public MesssageItem[] onExitMessage;    //Store messages to send it when Exit  the animation State
         public MesssageItem[] onTimeMessage;    //Store messages to send on a specific time  in the animation State
 
-        IBehaviourListener[] listeners;         //To all the MonoBehavious that Have this 
+        IAnimatorListener[] listeners;         //To all the MonoBehavious that Have this 
 
 
         override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
-            listeners = animator.GetComponents<IBehaviourListener>();
+            listeners = animator.GetComponents<IAnimatorListener>();
 
 
             foreach (MesssageItem ontimeM in onTimeMessage)  //Set all the messages Ontime Sent = false when start
@@ -56,10 +42,13 @@ namespace MalbersAnimations
 
             foreach (MesssageItem onEnterM in onEnterMessage)
             {
-                if (UseSendMessage)
-                    DeliverMessage(onEnterM, animator);
-                else
-                    foreach (var item in listeners) DeliverListener(onEnterM, item);
+                if (onEnterM.Active && onEnterM.message != string.Empty)
+                {
+                    if (UseSendMessage)
+                        DeliverMessage(onEnterM, animator);
+                    else
+                        foreach (var item in listeners) DeliverListener(onEnterM, item);
+                }
             }
         }
 
@@ -67,10 +56,13 @@ namespace MalbersAnimations
         {
             foreach (MesssageItem onExitM in onExitMessage)
             {
-                if (UseSendMessage)
-                    DeliverMessage(onExitM, animator);
-                else
-                    foreach (var item in listeners) DeliverListener(onExitM, item);
+                if (onExitM.Active && onExitM.message != string.Empty)
+                {
+                    if (UseSendMessage)
+                        DeliverMessage(onExitM, animator);
+                    else
+                        foreach (var item in listeners) DeliverListener(onExitM, item);
+                }
             }
         }
 
@@ -78,15 +70,18 @@ namespace MalbersAnimations
         {
             foreach (MesssageItem onTimeM in onTimeMessage)
             {
-               //if (!onTimeM.sent && (stateInfo.normalizedTime % 1) >= onTimeM.time) 
-                if (!onTimeM.sent && Mathf.Abs((stateInfo.normalizedTime % 1) - onTimeM.time) <= 0.1f)
-                {
-                    onTimeM.sent = true;
+                if (onTimeM.Active && onTimeM.message != string.Empty)
+                {  
+                    //if (!onTimeM.sent && (stateInfo.normalizedTime % 1) >= onTimeM.time) 
+                    if (!onTimeM.sent && Mathf.Abs((stateInfo.normalizedTime % 1) - onTimeM.time) <= 0.1f)
+                    {
+                        onTimeM.sent = true;
 
-                    if (UseSendMessage)
-                        DeliverMessage(onTimeM, animator);
-                    else
-                        foreach (var item in listeners) DeliverListener(onTimeM, item);
+                        if (UseSendMessage)
+                            DeliverMessage(onTimeM, animator);
+                        else
+                            foreach (var item in listeners) DeliverListener(onTimeM, item);
+                    }
                 }
             }
         }
@@ -124,7 +119,7 @@ namespace MalbersAnimations
         /// <summary>
         /// Send messages to all scripts with IBehaviourListener to this animator 
         /// </summary>
-        void DeliverListener(MesssageItem m, IBehaviourListener listener)
+        void DeliverListener(MesssageItem m, IAnimatorListener listener)
         {
             switch (m.typeM)
             {
@@ -142,12 +137,32 @@ namespace MalbersAnimations
                     break;
                 case TypeMessage.Void:
                     listener.OnAnimatorBehaviourMessage(m.message, null);
-
                     break;
                 default:
                     break;
             }
         }
+    }
 
+
+    [System.Serializable]
+    public class MesssageItem
+    {
+        public string message;
+        public TypeMessage typeM;
+        public bool boolValue;
+        public int intValue;
+        public float floatValue;
+        public string stringValue;
+
+        public float time;
+        public bool sent;
+        public bool Active = true;
+
+        public MesssageItem()
+        {
+            message = string.Empty;
+            Active = true;
+        }
     }
 }

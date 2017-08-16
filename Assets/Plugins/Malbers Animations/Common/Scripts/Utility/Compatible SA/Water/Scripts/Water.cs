@@ -338,7 +338,7 @@ namespace MalbersAnimations
 
         WaterMode FindHardwareWaterSupport()
         {
-            if (!SystemInfo.supportsRenderTextures || !GetComponent<Renderer>())
+            if (!GetComponent<Renderer>())
             {
                 return WaterMode.Simple;
             }

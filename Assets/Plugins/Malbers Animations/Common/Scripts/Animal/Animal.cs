@@ -4,12 +4,12 @@ using System.Collections;
 namespace MalbersAnimations
 {
     [RequireComponent(typeof(Animator))]
-    //[RequireComponent(typeof(Rigidbody))]
+    [RequireComponent(typeof(Rigidbody))]
     /// <summary>
     /// This will controll all Animals Motion  
-    /// Version 1.0.3
+    /// Version 1.0.4
     /// </summary>
-    public partial class Animal : MonoBehaviour, iMalbersInputs , IBehaviourListener
+    public partial class Animal : MonoBehaviour, iMalbersInputs , IAnimatorListener
     {
         //This was left in blank Intentionally
 

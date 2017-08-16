@@ -24,10 +24,6 @@ using UnityEngine.Events;
     { }
 
     [Serializable]
-    public class WeaponActionEvent : UnityEvent<WeaponActions>
-    { }
-
-    [Serializable]
     public class IntEvent : UnityEvent<int>
     {}
 
@@ -37,6 +33,15 @@ using UnityEngine.Events;
 
     [Serializable]
     public class BoolEvent : UnityEvent<bool>
+    { }
+
+
+    [Serializable]
+    public class ColliderEvent : UnityEvent<Collider>
+    { }
+
+    [Serializable]
+    public class CollisionEvent : UnityEvent<Collision>
     { }
 
 }

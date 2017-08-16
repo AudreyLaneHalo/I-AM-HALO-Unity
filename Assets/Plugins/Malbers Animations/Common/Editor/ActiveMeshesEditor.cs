@@ -91,6 +91,7 @@ namespace MalbersAnimations.Utilities
                     {
                         EditorGUILayout.BeginVertical(EditorStyles.helpBox);
                         SerializedProperty Element = ToggleMeshes.GetArrayElementAtIndex(list.index);
+
                         EditorGUILayout.PropertyField(Element, true);
                         EditorGUILayout.EndVertical();
                     }

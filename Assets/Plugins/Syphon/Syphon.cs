@@ -103,7 +103,7 @@ using System.IO;
 	public static Dictionary<string, Dictionary<string, SyphonServerObject>> Servers{ get{ return Syphon.Instance.servers;	}}
 
 	public static Dictionary<string, string[]> ServerAppNames{ get{ return Syphon.Instance.serverAppNames;}}
-	private static int updateContext = 200;
+//	private static int updateContext = 200;
 	private static bool updatedAssembly = false;
 	//if you don't have a name, name its dictionary hash unnamed.
 	private const string unnamed = "unnamed";

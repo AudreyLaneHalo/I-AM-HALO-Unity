@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+
 #if UNITY_EDITOR
 public class GizmoVisualizer : MonoBehaviour
 {
@@ -14,6 +15,8 @@ public class GizmoVisualizer : MonoBehaviour
     public float alpha = 1;
     public float debugSize = 0.03f;
     public Color DebugColor = Color.blue;
+    public bool DrawAxis;
+    public float AxisSize = 0.3f;
 
     private Collider _collider;
 
@@ -32,6 +35,13 @@ public class GizmoVisualizer : MonoBehaviour
 
   void OnDrawGizmos()
     {
+        if (DrawAxis)
+        {
+            Debug.DrawRay(transform.position, transform.forward * AxisSize, Color.blue);
+            Debug.DrawRay(transform.position, transform.up * AxisSize, Color.green);
+            Debug.DrawRay(transform.position, transform.right * AxisSize, Color.red);
+        }
+
         Gizmos.color = DebugColor;
         Gizmos.matrix = transform.localToWorldMatrix;
 
@@ -57,7 +67,9 @@ public class GizmoVisualizer : MonoBehaviour
             default:
                 break;
         }
-       
+
+
+   
     }
 
     void OnDrawGizmosSelected()

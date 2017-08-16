@@ -80,6 +80,11 @@ namespace MalbersAnimations
             }
         }
 
+        public void SetInputType(InputType type)
+        {
+            this.type = type;
+        }
+
 #region Constructors
         public InputRow(string i)
         {
@@ -105,7 +110,16 @@ namespace MalbersAnimations
             input = i;
             GetPressed = InputButton.Down;
         }
-#endregion
+
+        public InputRow(string i, KeyCode k, InputButton pressed)
+        {
+            active = true;
+            type = InputType.Key;
+            key = k;
+            input = i;
+            GetPressed = InputButton.Down;
+        }
+        #endregion
     }
     #endregion
     public class MalbersInput : MonoBehaviour
@@ -115,6 +129,11 @@ namespace MalbersAnimations
         private Vector3 m_Move;
         private Transform m_Cam;
         public List<InputRow> inputs = new List<InputRow>();
+
+        public string Horizontal = "Horizontal";
+        public string Vertical = "Vertical";
+
+
         public bool cameraBaseInput;
         public bool alwaysForward;
 
@@ -138,11 +157,11 @@ namespace MalbersAnimations
         void FixedUpdate()
         {
 #if !CROSS_PLATFORM_INPUT
-            h = Input.GetAxis("Horizontal");
-            v = alwaysForward ? 1 : Input.GetAxis("Vertical");
+            h = Input.GetAxis(Horizontal);
+            v = alwaysForward ? 1 : Input.GetAxis(Vertical);
 #else
-            h = CrossPlatformInputManager.GetAxis("Horizontal");
-            v = CrossPlatformInputManager.GetAxis("Vertical");
+            h = CrossPlatformInputManager.GetAxis(Horizontal);
+            v = alwaysForward ? 1 : CrossPlatformInputManager.GetAxis(Vertical);
 #endif
             SetInput();
         }
@@ -169,8 +188,6 @@ namespace MalbersAnimations
         /// </summary>
         protected virtual void SetInput()
         {
-          
-
             if (cameraBaseInput)
             {
                 character.Move(CameraInputBased());
@@ -197,9 +214,26 @@ namespace MalbersAnimations
             if (isActive("Death")) character.Death = GetInput("Death");            //Get the Death button change the variable entry to manipulate how the death works
             if (isActive("Damaged")) character.Damaged = GetInput("Damaged");
 
-            if (isActive("Speed1")) character.Speed1 = GetInput("Speed1");                //Walk
-            if (isActive("Speed2")) character.Speed2 = GetInput("Speed2");                //Trot
-            if (isActive("Speed3")) character.Speed3 = GetInput("Speed3");                //Run
+            if (isActive("Speed1"))     //Walk
+            {
+                bool s1 = GetInput("Speed1");
+                if (character.Speed1 != s1) character.Speed1 = s1;
+            }
+
+            if (isActive("Speed2"))     //Trot
+            {
+                bool s2 = GetInput("Speed2");
+                if (character.Speed2 != s2) character.Speed2 = s2;
+            }
+
+            if (isActive("Speed3"))     //Run
+            {
+                bool s3 = GetInput("Speed3");
+                if (character.Speed3 != s3) character.Speed3 = s3;
+            }
+
+            //if (isActive("Speed2")) { character.Speed2 = GetInput("Speed2"); }              //Trot
+            //if (isActive("Speed3")) { character.Speed3 = GetInput("Speed3"); }               //Run
 
             //Get the Death button change the variable entry to manipulate how the death works
         }
@@ -207,16 +241,11 @@ namespace MalbersAnimations
         /// <summary>
         /// Enable/Disable the Input
         /// </summary>
-        public void EnableInput(string inputName, bool value)
+        public virtual void EnableInput(string inputName, bool value)
         {
-            foreach (InputRow item in inputs)
-            {
-                if (item.name.ToUpper() == inputName.ToUpper())
-                {
-                    item.active = value;
-                    return;
-                }
-            }
+            InputRow i = inputs.Find(item => item.name == inputName);
+
+            if (i != null) i.active = value;
         }
 
         /// <summary>
@@ -224,6 +253,8 @@ namespace MalbersAnimations
         /// </summary>
         protected bool GetInput(string name)
         {
+            // return inputs.Find(item => item.name.ToUpper() == name.ToUpper() && item.active); 
+
             foreach (InputRow item in inputs)
             {
                 if (item.name.ToUpper() == name.ToUpper() && item.active)
@@ -237,8 +268,10 @@ namespace MalbersAnimations
         /// <summary>
         /// Check if the input is active
         /// </summary>
-        bool isActive(string name)
+       public virtual bool isActive(string name)
         {
+            // return inputs.Find(item => item.name == name).active;
+
             foreach (InputRow item in inputs)
             {
                 if (item.name.ToUpper() == name.ToUpper()) return item.active;

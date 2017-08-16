@@ -3,7 +3,7 @@ using System.Collections;
 
 public class CameraCtrl : MonoBehaviour
 {
-	public Transform light = null;
+	public new Transform light = null;
 	public MeshRenderer earthRenderer = null;
 	public MeshRenderer atmosphereRenderer = null;
 

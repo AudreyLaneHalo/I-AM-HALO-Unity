@@ -25,19 +25,21 @@ namespace MalbersAnimations
         {
             if (enable)     SetCameraState("Mounted");
             else            SetCameraState("Default");
+
+           
         }
 
-        public void SetCameraState(WeaponActions Actions)
+        public void SetCameraState(int Actions)
         {
             switch (Actions)
             {
-                case WeaponActions.Idle:
+                case 0:
                     SetCameraState("Mounted");
                     break;
-                case WeaponActions.AimRight:
+                case 1:
                     SetCameraState("RiderAimRight");
                     break;
-                case WeaponActions.AimLeft:
+                case -1:
                     SetCameraState("RiderAimLeft");
                     break;
                 default:

@@ -30,8 +30,8 @@ namespace MalbersAnimations
             {
                 StepAudio = gameObject.AddComponent<AudioSource>();
             }
-            
 
+            StepAudio.spatialBlend = 1;  //Make the Sound 3D
             StepAudio.volume = volume;
         }
 

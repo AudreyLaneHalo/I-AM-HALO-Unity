@@ -5,33 +5,35 @@ namespace MalbersAnimations
 {
     public class SleepBehavior : StateMachineBehaviour
     {
-
-        // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state 
-        // [Header("and move to the next animation Clip ")]
-        // [Header("This will count every Cycle ")]
-
         public bool CyclesFromController;
 
         public int Cycles, transitionID;
+
         int currentCycle;
+        Animal animal;
 
         void CyclesToSleep(Animator animator, AnimatorStateInfo stateInfo)
         {
             if (CyclesFromController)
             {
-                Cycles = animator.GetComponent<Animal>().GotoSleep;
+                Cycles = animal.GotoSleep;
+                if (Cycles == 0) return;
             }
             currentCycle++;
 
             if (currentCycle >= Cycles)
             {
-                animator.GetComponent<Animal>().SetIntID(transitionID);
+                animal.SetIntID(transitionID);
                 currentCycle = 0;
             }
         }
 
         override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
         {
+            animal = animator.GetComponent<Animal>();
+
+            if (animal.GotoSleep == 0) return;
+         
             if (!stateInfo.IsTag("Idle"))
             {
                 CyclesToSleep(animator, stateInfo);
@@ -41,20 +43,20 @@ namespace MalbersAnimations
 
         override public void OnStateMachineEnter(Animator animator, int stateMachinePathHash)
         {
-           if (animator.GetComponent<Animal>().Tired == 0)
-                animator.GetComponent<Animal>().SetIntID(0);
+            if (animal.GotoSleep == 0) return;
+
+            if (animal.Tired == 0)
+                animal.SetIntID(0);
 
             //If is in idle, start to count , to get to sleep
             if (animator.GetCurrentAnimatorStateInfo(0).IsTag("Idle"))
             {
-                animator.GetComponent<Animal>().Tired++;
-                if (animator.GetComponent<Animal>().Tired >= animator.GetComponent<Animal>().GotoSleep - 1)
+                animal.Tired++;
+                if (animal.Tired >= animal.GotoSleep - 1)
                 {
                     //Get to the Sleep Mode
-                    animator.GetComponent<Animal>().SetIntID(-100);
-
-
-                    animator.GetComponent<Animal>().Tired = 0;
+                    animal.SetIntID(-100);
+                    animal.Tired = 0;
                 }
             }
             else

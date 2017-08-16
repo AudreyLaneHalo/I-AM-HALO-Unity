@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 using UnityEditor;
 using UnityEditorInternal;
-using System;
 
 
 namespace MalbersAnimations
@@ -54,7 +53,7 @@ namespace MalbersAnimations
             EditorGUILayout.BeginVertical(MalbersEditor.StyleGray);
             {
                 
-                EditorGUILayout.BeginVertical(MalbersEditor.StyleGray);
+                EditorGUILayout.BeginVertical(EditorStyles.helpBox);
 
                 EditorGUI.indentLevel++;
                 if (listOnEnter.count > 0) OnEnter = true;
@@ -65,7 +64,7 @@ namespace MalbersAnimations
                     listOnEnter.DoLayoutList();
                 }
                 EditorGUILayout.EndVertical();
-                EditorGUILayout.BeginVertical(MalbersEditor.StyleGray);
+                EditorGUILayout.BeginVertical(EditorStyles.helpBox);
                 EditorGUI.indentLevel++;
                 if (listOnExit.count > 0) OnExit = true;
                 OnExit = EditorGUILayout.Foldout(OnExit, "On Exit (" + listOnExit.count + ")");
@@ -75,7 +74,7 @@ namespace MalbersAnimations
                     listOnExit.DoLayoutList();
                 }
                 EditorGUILayout.EndVertical();
-                EditorGUILayout.BeginVertical(MalbersEditor.StyleGray);
+                EditorGUILayout.BeginVertical(EditorStyles.helpBox);
                 EditorGUI.indentLevel++;
                 if (listOnTime.count > 0) OnTime = true;
                 OnTime = EditorGUILayout.Foldout(OnTime, "On Time (" + listOnTime.count + ")");
@@ -136,9 +135,13 @@ namespace MalbersAnimations
             var element = MMessage.onEnterMessage[index];
             rect.y += 2;
 
-            Rect R_1 = new Rect(rect.x, rect.y, (rect.width / 3) + 30, EditorGUIUtility.singleLineHeight);
+            Rect R_0 = new Rect(rect.x, rect.y, 15, EditorGUIUtility.singleLineHeight);
+            element.Active = EditorGUI.Toggle(R_0, element.Active);
+
+            Rect R_1 = new Rect(rect.x+15, rect.y, (rect.width / 3) + 15, EditorGUIUtility.singleLineHeight);
             element.message = EditorGUI.TextField(R_1, element.message);
 
+            
             Rect R_3 = new Rect(rect.x + ((rect.width) / 3) + 5 + 30, rect.y, ((rect.width) / 3) - 5 - 15, EditorGUIUtility.singleLineHeight);
             element.typeM = (TypeMessage)EditorGUI.EnumPopup(R_3, element.typeM);
 
@@ -169,7 +172,10 @@ namespace MalbersAnimations
             var element = MMessage.onExitMessage[index];
             rect.y += 2;
 
-            Rect R_1 = new Rect(rect.x, rect.y, (rect.width / 3) + 30, EditorGUIUtility.singleLineHeight);
+            Rect R_0 = new Rect(rect.x, rect.y, 15, EditorGUIUtility.singleLineHeight);
+            element.Active = EditorGUI.Toggle(R_0, element.Active);
+
+            Rect R_1 = new Rect(rect.x + 15, rect.y, (rect.width / 3) + 15, EditorGUIUtility.singleLineHeight);
             element.message = EditorGUI.TextField(R_1, element.message);
 
             Rect R_3 = new Rect(rect.x + ((rect.width) / 3) + 5 + 30, rect.y, ((rect.width) / 3) - 5 - 15, EditorGUIUtility.singleLineHeight);
@@ -201,7 +207,10 @@ namespace MalbersAnimations
             var element = MMessage.onTimeMessage[index];
             rect.y += 2;
 
-            Rect R_1 = new Rect(rect.x, rect.y, (rect.width / 4) + 30, EditorGUIUtility.singleLineHeight);
+            Rect R_0 = new Rect(rect.x, rect.y, 15, EditorGUIUtility.singleLineHeight);
+            element.Active = EditorGUI.Toggle(R_0, element.Active);
+
+            Rect R_1 = new Rect(rect.x + 15, rect.y, (rect.width / 3) + 15, EditorGUIUtility.singleLineHeight);
             element.message = EditorGUI.TextField(R_1, element.message);
 
             Rect R_3 = new Rect(rect.x + ((rect.width) / 4) + 5 + 30, rect.y, ((rect.width) / 4) - 5 - 5, EditorGUIUtility.singleLineHeight);

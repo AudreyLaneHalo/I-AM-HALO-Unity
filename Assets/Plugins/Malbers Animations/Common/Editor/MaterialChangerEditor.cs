@@ -103,7 +103,25 @@ namespace MalbersAnimations.Utilities
                     {
                         EditorGUILayout.BeginVertical(EditorStyles.helpBox);
                         SerializedProperty Element = materialList.GetArrayElementAtIndex(list.index);
-                        EditorGUILayout.PropertyField(Element, true);
+                        EditorGUILayout.LabelField(MyMaterialChanger.materialList[list.index].Name, EditorStyles.boldLabel);
+
+                        EditorGUILayout.BeginVertical(EditorStyles.helpBox);
+                        EditorGUILayout.PropertyField(Element.FindPropertyRelative("mesh"), new GUIContent("Mesh"));
+                        EditorGUILayout.EndVertical();
+
+                        EditorGUILayout.BeginVertical(EditorStyles.helpBox);
+                        EditorGUILayout.PropertyField(Element.FindPropertyRelative("materials"), new GUIContent("Materials"),true);
+                        EditorGUILayout.EndVertical();
+
+                        EditorGUILayout.BeginVertical(EditorStyles.helpBox);
+                        SerializedProperty hasLODS = Element.FindPropertyRelative("HasLODs");
+                        EditorGUILayout.PropertyField(hasLODS, new GUIContent("LODs", "Has Level of Detail Meshes"));
+                        if (hasLODS.boolValue)
+                        {
+                            EditorGUILayout.PropertyField(Element.FindPropertyRelative("LODs"), new GUIContent("Meshes", "Has Level of Detail Meshes"),true);
+                        }
+                        EditorGUILayout.EndVertical();
+                        //EditorGUILayout.PropertyField(Element, true);
                         EditorGUILayout.EndVertical();
                     }
                 }
