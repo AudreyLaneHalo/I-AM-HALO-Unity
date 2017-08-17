@@ -1,0 +1,9 @@
+{
+"TOTAL_MEMORY": 268435456,
+"dataUrl": "horsePlay.data.unityweb",
+"asmCodeUrl": "horsePlay.asm.code.unityweb",
+"asmMemoryUrl": "horsePlay.asm.memory.unityweb",
+"asmFrameworkUrl": "horsePlay.asm.framework.unityweb",
+"splashScreenStyle": "Dark",
+"backgroundColor": "#222C36"
+}
