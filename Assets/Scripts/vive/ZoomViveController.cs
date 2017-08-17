@@ -3,32 +3,35 @@ using System.Collections;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-public class ZoomViveController : ViveController
+namespace BL.Vive
 {
-	public bool triggerDown;
-
-	ViveInputManager _inputManager;
-	ViveInputManager inputManager
+	public class ZoomViveController : ViveController
 	{
-		get
+		public bool triggerDown;
+
+		ViveInputManager _inputManager;
+		ViveInputManager inputManager
 		{
-			if (_inputManager == null)
+			get
 			{
-				_inputManager = GetComponentInParent<ViveInputManager>();
+				if (_inputManager == null)
+				{
+					_inputManager = GetComponentInParent<ViveInputManager>();
+				}
+				return _inputManager;
 			}
-			return _inputManager;
 		}
-	}
 
-	public override void OnTriggerDown()
-	{
-		triggerDown = true;
-		inputManager.StartPinch( this );
-	}
+		public override void OnTriggerDown()
+		{
+			triggerDown = true;
+			inputManager.StartPinch( this );
+		}
 
-	public override void OnTriggerUp()
-	{
-		triggerDown = false;
-		inputManager.StopPinch();
+		public override void OnTriggerUp()
+		{
+			triggerDown = false;
+			inputManager.StopPinch();
+		}
 	}
 }

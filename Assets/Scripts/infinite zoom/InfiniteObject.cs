@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace InfiniteZoom
+namespace BL.InfiniteZoom
 {
 	[System.Serializable]
 	public class ZoomLevel

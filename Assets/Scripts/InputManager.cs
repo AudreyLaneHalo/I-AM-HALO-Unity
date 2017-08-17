@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using InfiniteZoom;
+using BL.InfiniteZoom;
 
 public class InputManager : MonoBehaviour 
 {
