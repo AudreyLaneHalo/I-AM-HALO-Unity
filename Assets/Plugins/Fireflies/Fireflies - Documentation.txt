@@ -1,0 +1,11 @@
+A cloud of flying/glowing fireflies to add atmosphere to your environment.
+
+Simply load the example Fireflies.unity scene, or drag Fireflies from the Prefabs folder into the Hierarchy window.
+
+Additionally, add the Forest_Audio prefab to your scene for sound effects.
+
+Have fun!
+
+Thanks for purchasing this asset, please consider rating or writing a review about it. If you have any questions then please get in touch at bendurrant@rivermillstudios.com
+
+
