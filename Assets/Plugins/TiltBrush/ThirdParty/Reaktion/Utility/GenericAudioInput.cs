@@ -47,7 +47,7 @@ public class GenericAudioInput : MonoBehaviour
         if (paused)
         {
             audioSource.Stop();
-            Microphone.End(null);
+//            Microphone.End(null);
             audioSource.clip = null;
         }
         else
@@ -59,13 +59,13 @@ public class GenericAudioInput : MonoBehaviour
         var sampleRate = AudioSettings.outputSampleRate;
 
         // Create a clip which is assigned to the default microphone.
-        audioSource.clip = Microphone.Start(null, true, 1, sampleRate);
+//        audioSource.clip = Microphone.Start(null, true, 1, sampleRate);
 
         if (audioSource.clip != null)
         {
             // Wait until the microphone gets initialized.
             int delay = 0;
-            while (delay <= 0) delay = Microphone.GetPosition(null);
+//            while (delay <= 0) delay = Microphone.GetPosition(null);
 
             // Start playing.
             audioSource.Play();
