@@ -15,6 +15,9 @@ public class FollowLookZoomCamera : MonoBehaviour
 	public float zoomSpeedScroll = 1f;
 	public float zoomSpeedArrows = 0.1f;
 	public Vector2 zoomLimits = new Vector2( -5f, -50f );
+	public KeyCode zoomInKey = KeyCode.UpArrow;
+	public KeyCode zoomOutKey = KeyCode.DownArrow;
+	public bool useScrollToZoom = false;
 
 	float lookAngle = 0; // rig's y axis rotation.
 	float tiltAngle = 0; // pivot's x axis rotation.
@@ -212,26 +215,38 @@ public class FollowLookZoomCamera : MonoBehaviour
 
 	void ScrollToZoom ()
 	{
-		float scroll = CrossPlatformInputManager.GetAxis( "Mouse ScrollWheel" );
-		float arrow = CrossPlatformInputManager.GetAxis( "Vertical" );
-
-		float speed = zoomSpeedScroll;
-		if (arrow != 0)
+		float scroll = 0;
+		if (useScrollToZoom)
 		{
-			Debug.Log( "arrow" );
-			speed = zoomSpeedArrows;
+			scroll = CrossPlatformInputManager.GetAxis( "Mouse ScrollWheel" );
 		}
 
-		if (scroll > 0 || arrow > 0)
+		float arrow = 0;
+		if (Input.GetKey( zoomInKey ))
 		{
-			if (cam.localPosition.z < zoomLimits.x)
+			arrow = 1f;
+		}
+		else if (Input.GetKey( zoomOutKey ))
+		{
+			arrow = -1f;
+		}
+
+		float speed = zoomSpeedArrows;
+		if (scroll != 0)
+		{
+			speed = zoomSpeedScroll;
+		}
+
+		if (scroll > 0 || arrow > 0) // zoom in
+		{
+			if (cam.localPosition.z < -Mathf.Abs( zoomLimits.x ))
 			{
 				cam.localPosition += speed * Vector3.forward;
 			}
 		}
-		else if (scroll < 0 || arrow < 0)
+		else if (scroll < 0 || arrow < 0) // zoom out
 		{
-			if (cam.localPosition.z > zoomLimits.y)
+			if (cam.localPosition.z > -Mathf.Abs( zoomLimits.y ))
 			{
 				cam.localPosition -= speed * Vector3.forward;
 			}
