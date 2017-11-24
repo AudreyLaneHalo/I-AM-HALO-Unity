@@ -218,6 +218,7 @@ public class FollowLookZoomCamera : MonoBehaviour
 		float speed = zoomSpeedScroll;
 		if (arrow != 0)
 		{
+			Debug.Log( "arrow" );
 			speed = zoomSpeedArrows;
 		}
 
