@@ -146,7 +146,7 @@ namespace BL.Vive
 			{
 				OnTriggerDown();
 			}
-	        if (controller.GetPress(SteamVR_Controller.ButtonMask.Trigger))
+	        else if (controller.GetPress(SteamVR_Controller.ButtonMask.Trigger))
 	        {
 	            OnTriggerStay();
 	        }
