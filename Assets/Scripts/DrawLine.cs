@@ -68,7 +68,8 @@ public class DrawLine : MonoBehaviour
 
 	void StartLine ()
 	{
-		currentLine = new GameObject( "Line" + n ).AddComponent<LineRenderer>();
+		currentLine = (Instantiate( Resources.Load( "Line" ) ) as GameObject).GetComponent<LineRenderer>();
+		currentLine.name = "Line" + n;
 		currentLine.transform.SetParent( lines );
 		points.Clear();
 		points.Add( transform.position );
