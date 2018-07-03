@@ -13,7 +13,7 @@
                               
 
   This shader was automatically generated from
-  Plugins/Raymarching Toolkit/Assets/Shaders/RaymarchTemplate.shader
+  Plugins\Raymarching Toolkit\Assets\Shaders\RaymarchTemplate.shader
   
   for Raymarcher named 'Raymarcher' in scene 'CascadiaVR'.
 
@@ -53,7 +53,7 @@ CGPROGRAM
 
 // #define DEBUG_STEPS 1
 // #define DEBUG_MATERIALS 1
-#define AO_ENABLED 1
+// #define AO_ENABLED 1
 #define FOG_ENABLED 1
 // #define FADE_TO_SKYBOX 1
 uniform float FogDensity;
@@ -1318,28 +1318,28 @@ float fersertWaves(float3 p, float height) {
 }
 
 // Light Light1
-uniform float4 Light1_50457981PosAndRange;
-uniform float4 Light1_50457981ColorAndIntensity;
-uniform float3 Light1_50457981Direction;
-uniform float Light1_50457981Penumbra;
-uniform int Light1_50457981ShadowSteps;
+uniform float4 Light1_50457049PosAndRange;
+uniform float4 Light1_50457049ColorAndIntensity;
+uniform float3 Light1_50457049Direction;
+uniform float Light1_50457049Penumbra;
+uniform int Light1_50457049ShadowSteps;
 // Light Light2
-uniform float4 Light2_50457884PosAndRange;
-uniform float4 Light2_50457884ColorAndIntensity;
-uniform float3 Light2_50457884Direction;
-uniform float Light2_50457884Penumbra;
-uniform int Light2_50457884ShadowSteps;
+uniform float4 Light2_50456241PosAndRange;
+uniform float4 Light2_50456241ColorAndIntensity;
+uniform float3 Light2_50456241Direction;
+uniform float Light2_50456241Penumbra;
+uniform int Light2_50456241ShadowSteps;
 // Light Light3
-uniform float4 Light3_50457944PosAndRange;
-uniform float4 Light3_50457944ColorAndIntensity;
-uniform float3 Light3_50457944Direction;
-uniform float Light3_50457944Penumbra;
-uniform int Light3_50457944ShadowSteps;
+uniform float4 Light3_50456958PosAndRange;
+uniform float4 Light3_50456958ColorAndIntensity;
+uniform float3 Light3_50456958Direction;
+uniform float Light3_50456958Penumbra;
+uniform int Light3_50456958ShadowSteps;
 
 // UNIFORMS AND FUNCTIONS
-uniform int x_50457973_1d0a4544_iterations;
-uniform float x_50457973_1d0a4544_bailout;
-uniform float x_50457973_1d0a4544_power;
+uniform int x_50457018_1d0a4544_iterations;
+uniform float x_50457018_1d0a4544_bailout;
+uniform float x_50457018_1d0a4544_power;
 float object_FractalMandelbub(float3 p , int _INP_iterations, float _INP_bailout, float _INP_power) {
     // Generated from Assets/Plugins/Raymarching Toolkit/Assets/Snippets/Objects/Fractal Mandelbub.asset
     // http://iquilezles.org/www/articles/mandelbulb/mandelbulb.htm
@@ -1367,9 +1367,9 @@ float object_FractalMandelbub(float3 p , int _INP_iterations, float _INP_bailout
     return 0.5*log(r)*r/dr;
 }
 // uniforms for Fractal
-uniform float4x4 _50457973Matrix;
-uniform float _50457973MinScale;
-uniform float4 x_50457973_da843a44_color;
+uniform float4x4 _50457018Matrix;
+uniform float _50457018MinScale;
+uniform float4 x_50457018_da843a44_color;
 float3 material_SimpleColor(inout float3 normal, float3 p, float3 rayDir, float4 _INP_color) {
     // Generated from Assets/Plugins/Raymarching Toolkit/Assets/Snippets/Materials/SimpleColor.asset
     return _INP_color;
@@ -1379,7 +1379,7 @@ float3 MaterialFunc(float nf, inout float3 normal, float3 p, float3 rayDir, out 
     objectID = ceil(nf) / (float)1;
     [branch] if (nf <= 1) {
     //    objectID = 1;
-        return material_SimpleColor(normal, objPos(_50457973Matrix, p), rayDir, x_50457973_da843a44_color);
+        return material_SimpleColor(normal, objPos(_50457018Matrix, p), rayDir, x_50457018_da843a44_color);
     }
         objectID = 0;
         return float3(1.0, 0.0, 1.0);
@@ -1391,8 +1391,8 @@ float2 map(float3 p) {
 	float2 result = float2(1.0, 0.0);
 	
 {
-    float _50457973Distance = object_FractalMandelbub(objPos(_50457973Matrix, p), x_50457973_1d0a4544_iterations, x_50457973_1d0a4544_bailout, x_50457973_1d0a4544_power) * _50457973MinScale;
-    result = float2(_50457973Distance, /*material ID*/0.5);
+    float _50457018Distance = object_FractalMandelbub(objPos(_50457018Matrix, p), x_50457018_1d0a4544_iterations, x_50457018_1d0a4544_bailout, x_50457018_1d0a4544_power) * _50457018MinScale;
+    result = float2(_50457018Distance, /*material ID*/0.5);
     }
 	return result;
 }
@@ -1407,23 +1407,23 @@ float3 getLights(in float3 color, in float3 pos, in float3 normal) {
 	
 {
 LightInfo light;
-light.posAndRange = Light1_50457981PosAndRange;
-light.colorAndIntensity = Light1_50457981ColorAndIntensity;
-light.direction = Light1_50457981Direction;
+light.posAndRange = Light1_50457049PosAndRange;
+light.colorAndIntensity = Light1_50457049ColorAndIntensity;
+light.direction = Light1_50457049Direction;
 lightValue += getDirectionalLight(input, light);
 }
 {
 LightInfo light;
-light.posAndRange = Light2_50457884PosAndRange;
-light.colorAndIntensity = Light2_50457884ColorAndIntensity;
-light.direction = Light2_50457884Direction;
+light.posAndRange = Light2_50456241PosAndRange;
+light.colorAndIntensity = Light2_50456241ColorAndIntensity;
+light.direction = Light2_50456241Direction;
 lightValue += getDirectionalLight(input, light);
 }
 {
 LightInfo light;
-light.posAndRange = Light3_50457944PosAndRange;
-light.colorAndIntensity = Light3_50457944ColorAndIntensity;
-light.direction = Light3_50457944Direction;
+light.posAndRange = Light3_50456958PosAndRange;
+light.colorAndIntensity = Light3_50456958ColorAndIntensity;
+light.direction = Light3_50456958Direction;
 lightValue += getDirectionalLight(input, light);
 }
 	return lightValue;

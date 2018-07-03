@@ -1,9 +1,7 @@
 fileFormatVersion: 2
 guid: 7dfc040465f6f034d9152ef0973f91aa
-timeCreated: 1446489868
-licenseType: Store
 ModelImporter:
-  serializedVersion: 19
+  serializedVersion: 22
   fileIDToRecycleName:
     100000: //RootNode
     100002: Horsi_ Head
@@ -244,43 +242,52 @@ ModelImporter:
     13700002: Mesh
     13700004: Null
     13700006: CowBoy
+    2186277476908879412: ImportLogs
+  externalObjects: {}
   materials:
     importMaterials: 0
     materialName: 0
     materialSearch: 1
+    materialLocation: 0
   animations:
     legacyGenerateAnimations: 4
     bakeSimulation: 0
     resampleCurves: 1
     optimizeGameObjects: 0
     motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: "Copied Avatar Rig Configuration mis-match. Bone length in
+      copied configuration does not match position in animation file:\n\t'L Thigh'
+      : position error = 10.589387 mm\n"
     animationImportErrors: 
-    animationImportWarnings: "\nClip 'Take 001' has import animation warnings that
-      might lower retargeting quality:\n\t'R Thigh' has translation animation that
-      will be discarded.\n\t'R Clavicle' has translation animation that will be discarded.\n\t'L
-      Thigh' has translation animation that will be discarded.\n"
+    animationImportWarnings: 
     animationRetargetingWarnings: "\nRetargeting quality report for clip 'Take 001':\n\tLeftLowerLeg
-      average position error 36.5 mm and maximum position error 122.0 mm at time 24:
-      2 (51.6%) Frame 722\n\tLeftFoot average position error 36.5 mm and maximum position
+      average position error 36.1 mm and maximum position error 121.7 mm at time 24:
+      2 (51.6%) Frame 722\n\tLeftFoot average position error 36.2 mm and maximum position
       error 122.0 mm at time 24: 2 (51.6%) Frame 722\n\tRightLowerLeg average position
-      error 39.5 mm and maximum position error 121.0 mm at time 44: 5 (94.6%) Frame
-      1325\n\tRightFoot average position error 39.4 mm and maximum position error
-      121.0 mm at time 44: 5 (94.6%) Frame 1325\n\tLeftUpperArm average position error
-      12.4 mm and maximum position error 38.9 mm at time 44:20 (95.7%) Frame 1340\n\tLeftLowerArm
-      average position error 12.4 mm and maximum position error 39.1 mm at time 44:20
-      (95.7%) Frame 1340\n\tLeftHand average position error 12.4 mm and maximum position
-      error 38.9 mm at time 44:20 (95.7%) Frame 1340\n\tRightUpperArm average position
-      error 12.5 mm and maximum position error 43.0 mm at time 44:20 (95.7%) Frame
-      1340\n\tRightLowerArm average position error 12.5 mm and maximum position error
-      43.0 mm at time 44:20 (95.7%) Frame 1340\n\tRightHand average position error
-      12.5 mm and maximum position error 43.0 mm at time 44:20 (95.7%) Frame 1340\n"
+      error 38.8 mm and maximum position error 119.5 mm at time 44: 5 (94.6%) Frame
+      1325\n\tRightFoot average position error 38.9 mm and maximum position error
+      119.5 mm at time 44: 6 (94.7%) Frame 1326\n\tLeftUpperArm average position error
+      12.3 mm and maximum position error 40.4 mm at time 44:20 (95.7%) Frame 1340\n\tLeftLowerArm
+      average position error 12.3 mm and maximum position error 40.4 mm at time 44:20
+      (95.7%) Frame 1340\n\tLeftHand average position error 12.3 mm and maximum position
+      error 40.4 mm at time 44:20 (95.7%) Frame 1340\n\tRightUpperArm average position
+      error 12.3 mm and maximum position error 42.3 mm at time 44:20 (95.7%) Frame
+      1340\n\tRightLowerArm average position error 12.3 mm and maximum position error
+      42.3 mm at time 44:20 (95.7%) Frame 1340\n\tRightHand average position error
+      12.4 mm and maximum position error 42.3 mm at time 44:20 (95.7%) Frame 1340\n\tRightFoot
+      average orientation error 0.0 deg and maximum orientation error 0.9 deg at time
+      42:15 (91.1%) Frame 1275\n"
     animationDoRetargetingWarnings: 1
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
     animationCompression: 0
     animationRotationError: 0.5
     animationPositionError: 0.5
     animationScaleError: 0.5
     animationWrapMode: 0
     extraExposedTransformPaths: []
+    extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
       name: R_Idle01
@@ -309,18 +316,24 @@ ModelImporter:
         curve:
           serializedVersion: 2
           curve:
-          - serializedVersion: 2
+          - serializedVersion: 3
             time: 0
             value: 0
             inSlope: 0
             outSlope: 0
             tangentMode: 0
-          - serializedVersion: 2
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          - serializedVersion: 3
             time: 1
             value: 0
             inSlope: 0
             outSlope: 0
             tangentMode: 0
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
           preInfinity: 3
           postInfinity: 3
           rotationOrder: 0
@@ -328,18 +341,24 @@ ModelImporter:
         curve:
           serializedVersion: 2
           curve:
-          - serializedVersion: 2
+          - serializedVersion: 3
             time: 0
             value: 1
             inSlope: 0
             outSlope: 0
             tangentMode: 0
-          - serializedVersion: 2
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          - serializedVersion: 3
             time: 1
             value: 1
             inSlope: 0
             outSlope: 0
             tangentMode: 0
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
           preInfinity: 3
           postInfinity: 3
           rotationOrder: 0
@@ -347,18 +366,24 @@ ModelImporter:
         curve:
           serializedVersion: 2
           curve:
-          - serializedVersion: 2
+          - serializedVersion: 3
             time: 0
             value: 1
             inSlope: 0
             outSlope: 0
             tangentMode: 0
-          - serializedVersion: 2
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          - serializedVersion: 3
             time: 1
             value: 1
             inSlope: 0
             outSlope: 0
             tangentMode: 0
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
           preInfinity: 3
           postInfinity: 3
           rotationOrder: 0
@@ -530,18 +555,24 @@ ModelImporter:
         curve:
           serializedVersion: 2
           curve:
-          - serializedVersion: 2
+          - serializedVersion: 3
             time: 0
             value: 0
             inSlope: 0
             outSlope: 0
             tangentMode: 0
-          - serializedVersion: 2
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          - serializedVersion: 3
             time: 1
             value: 0
             inSlope: 0
             outSlope: 0
             tangentMode: 0
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
           preInfinity: 3
           postInfinity: 3
           rotationOrder: 0
@@ -549,18 +580,24 @@ ModelImporter:
         curve:
           serializedVersion: 2
           curve:
-          - serializedVersion: 2
+          - serializedVersion: 3
             time: 0
             value: 1
             inSlope: 0
             outSlope: 0
             tangentMode: 0
-          - serializedVersion: 2
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          - serializedVersion: 3
             time: 1
             value: 1
             inSlope: 0
             outSlope: 0
             tangentMode: 0
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
           preInfinity: 3
           postInfinity: 3
           rotationOrder: 0
@@ -568,18 +605,24 @@ ModelImporter:
         curve:
           serializedVersion: 2
           curve:
-          - serializedVersion: 2
+          - serializedVersion: 3
             time: 0
             value: 1
             inSlope: 0
             outSlope: 0
             tangentMode: 0
-          - serializedVersion: 2
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          - serializedVersion: 3
             time: 1
             value: 1
             inSlope: 0
             outSlope: 0
             tangentMode: 0
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
           preInfinity: 3
           postInfinity: 3
           rotationOrder: 0
@@ -751,18 +794,24 @@ ModelImporter:
         curve:
           serializedVersion: 2
           curve:
-          - serializedVersion: 2
+          - serializedVersion: 3
             time: 0
             value: 0
             inSlope: 0
             outSlope: 0
             tangentMode: 0
-          - serializedVersion: 2
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          - serializedVersion: 3
             time: 1
             value: 0
             inSlope: 0
             outSlope: 0
             tangentMode: 0
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
           preInfinity: 3
           postInfinity: 3
           rotationOrder: 0
@@ -770,18 +819,24 @@ ModelImporter:
         curve:
           serializedVersion: 2
           curve:
-          - serializedVersion: 2
+          - serializedVersion: 3
             time: 0
             value: 1
             inSlope: 0
             outSlope: 0
             tangentMode: 0
-          - serializedVersion: 2
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          - serializedVersion: 3
             time: 1
             value: 1
             inSlope: 0
             outSlope: 0
             tangentMode: 0
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
           preInfinity: 3
           postInfinity: 3
           rotationOrder: 0
@@ -789,18 +844,24 @@ ModelImporter:
         curve:
           serializedVersion: 2
           curve:
-          - serializedVersion: 2
+          - serializedVersion: 3
             time: 0
             value: 1
             inSlope: 0
             outSlope: 0
             tangentMode: 0
-          - serializedVersion: 2
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          - serializedVersion: 3
             time: 1
             value: 1
             inSlope: 0
             outSlope: 0
             tangentMode: 0
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
           preInfinity: 3
           postInfinity: 3
           rotationOrder: 0
@@ -972,18 +1033,24 @@ ModelImporter:
         curve:
           serializedVersion: 2
           curve:
-          - serializedVersion: 2
+          - serializedVersion: 3
             time: 0
             value: 0
             inSlope: 0
             outSlope: 0
             tangentMode: 0
-          - serializedVersion: 2
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          - serializedVersion: 3
             time: 1
             value: 0
             inSlope: 0
             outSlope: 0
             tangentMode: 0
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
           preInfinity: 3
           postInfinity: 3
           rotationOrder: 0
@@ -991,18 +1058,24 @@ ModelImporter:
         curve:
           serializedVersion: 2
           curve:
-          - serializedVersion: 2
+          - serializedVersion: 3
             time: 0
             value: 1
             inSlope: 0
             outSlope: 0
             tangentMode: 0
-          - serializedVersion: 2
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          - serializedVersion: 3
             time: 1
             value: 1
             inSlope: 0
             outSlope: 0
             tangentMode: 0
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
           preInfinity: 3
           postInfinity: 3
           rotationOrder: 0
@@ -1010,18 +1083,24 @@ ModelImporter:
         curve:
           serializedVersion: 2
           curve:
-          - serializedVersion: 2
+          - serializedVersion: 3
             time: 0
             value: 1
             inSlope: 0
             outSlope: 0
             tangentMode: 0
-          - serializedVersion: 2
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          - serializedVersion: 3
             time: 1
             value: 1
             inSlope: 0
             outSlope: 0
             tangentMode: 0
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
           preInfinity: 3
           postInfinity: 3
           rotationOrder: 0
@@ -4752,13 +4831,18 @@ ModelImporter:
     globalScale: 1
     meshCompression: 0
     addColliders: 0
+    importVisibility: 0
     importBlendShapes: 0
+    importCameras: 0
+    importLights: 0
     swapUVChannels: 0
     generateSecondaryUV: 0
     useFileUnits: 1
     optimizeMeshForGPU: 1
     keepQuads: 0
     weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 1
     secondaryUVAngleDistortion: 8
     secondaryUVAreaDistortion: 15.000001
     secondaryUVHardAngle: 88
@@ -4768,6 +4852,7 @@ ModelImporter:
     normalSmoothAngle: 60
     normalImportMode: 0
     tangentImportMode: 4
+    normalCalculationMode: 0
   importAnimation: 1
   copyAvatar: 1
   humanDescription:

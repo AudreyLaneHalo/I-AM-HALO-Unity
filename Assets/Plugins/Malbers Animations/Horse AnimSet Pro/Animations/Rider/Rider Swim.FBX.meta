@@ -1,9 +1,7 @@
 fileFormatVersion: 2
 guid: 223ba9c21d4148142b72b47003234fc6
-timeCreated: 1460749840
-licenseType: Store
 ModelImporter:
-  serializedVersion: 19
+  serializedVersion: 22
   fileIDToRecycleName:
     100000: Head
     100002: L Calf
@@ -243,28 +241,33 @@ ModelImporter:
     7400016: RSwim Back Right
     9500000: //RootNode
     13700000: Sphere001
+    2186277476908879412: ImportLogs
+  externalObjects: {}
   materials:
     importMaterials: 0
     materialName: 0
     materialSearch: 1
+    materialLocation: 0
   animations:
     legacyGenerateAnimations: 4
     bakeSimulation: 0
     resampleCurves: 1
     optimizeGameObjects: 0
     motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: "Copied Avatar Rig Configuration mis-match. Bone length in
+      copied configuration does not match position in animation file:\n\t'L Thigh'
+      : position error = 104.796631 mm\n\t'R Thigh' : position error = 104.796967
+      mm\n"
     animationImportErrors: 
-    animationImportWarnings: 'Copied Avatar Rig Configuration mis-match. Bone length
-      in copied configuration does not match position in animation file
-
-      Rider Swim'
+    animationImportWarnings: 
     animationRetargetingWarnings: "\nRetargeting quality report for clip 'Take 001':\n\tLeftLowerLeg
       average position error 104.8 mm and maximum position error 104.8 mm at time
-      5: 1 (42.8%) Frame 151\n\tLeftFoot average position error 104.8 mm and maximum
-      position error 104.8 mm at time 2:15 (21.2%) Frame 75\n\tRightLowerLeg average
-      position error 104.8 mm and maximum position error 104.8 mm at time 11: 8 (95.8%)
-      Frame 338\n\tRightFoot average position error 104.8 mm and maximum position
-      error 104.8 mm at time 10:27 (92.6%) Frame 327\n\tLeftUpperArm average position
+      2:15 (21.2%) Frame 75\n\tLeftFoot average position error 104.8 mm and maximum
+      position error 104.8 mm at time 6:21 (56.9%) Frame 201\n\tRightLowerLeg average
+      position error 104.8 mm and maximum position error 104.8 mm at time 8: 6 (69.7%)
+      Frame 246\n\tRightFoot average position error 104.8 mm and maximum position
+      error 104.8 mm at time 8: 6 (69.7%) Frame 246\n\tLeftUpperArm average position
       error 314.4 mm and maximum position error 314.4 mm at time 8:17 (72.8%) Frame
       257\n\tLeftLowerArm average position error 314.4 mm and maximum position error
       314.5 mm at time 8:17 (72.8%) Frame 257\n\tLeftHand average position error 314.4
@@ -273,14 +276,17 @@ ModelImporter:
       8:16 (72.5%) Frame 256\n\tRightLowerArm average position error 314.4 mm and
       maximum position error 314.5 mm at time 8:12 (71.4%) Frame 252\n\tRightHand
       average position error 314.4 mm and maximum position error 314.4 mm at time
-      0:14 (4.0%) Frame 14\n"
+      8:15 (72.2%) Frame 255\n"
     animationDoRetargetingWarnings: 1
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
     animationCompression: 0
     animationRotationError: 0.5
     animationPositionError: 0.5
     animationScaleError: 0.5
     animationWrapMode: 0
     extraExposedTransformPaths: []
+    extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
       name: RSwim Forward
@@ -1656,13 +1662,18 @@ ModelImporter:
     globalScale: 1
     meshCompression: 0
     addColliders: 0
+    importVisibility: 0
     importBlendShapes: 0
+    importCameras: 0
+    importLights: 0
     swapUVChannels: 0
     generateSecondaryUV: 0
     useFileUnits: 1
     optimizeMeshForGPU: 1
     keepQuads: 0
     weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 1
     secondaryUVAngleDistortion: 8
     secondaryUVAreaDistortion: 15.000001
     secondaryUVHardAngle: 88
@@ -1672,6 +1683,7 @@ ModelImporter:
     normalSmoothAngle: 60
     normalImportMode: 0
     tangentImportMode: 3
+    normalCalculationMode: 0
   importAnimation: 1
   copyAvatar: 1
   humanDescription:

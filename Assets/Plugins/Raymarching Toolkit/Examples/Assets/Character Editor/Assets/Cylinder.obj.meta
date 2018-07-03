@@ -1,7 +1,5 @@
 fileFormatVersion: 2
 guid: 59b9dfde3bbb04a8fa09dd6a228668be
-timeCreated: 1524627702
-licenseType: Free
 ModelImporter:
   serializedVersion: 22
   fileIDToRecycleName:
@@ -12,6 +10,8 @@ ModelImporter:
     400002: Cylinder_0
     400004: Cylinder_1
     2100000: Default_Prototype
+    2100002: Cylinder_0Mat
+    2100004: Cylinder_1Mat
     2300000: Cylinder_0
     2300002: Cylinder_1
     3300000: Cylinder_0
@@ -37,6 +37,7 @@ ModelImporter:
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
+    importConstraints: 0
     animationCompression: 1
     animationRotationError: 0.5
     animationPositionError: 0.5

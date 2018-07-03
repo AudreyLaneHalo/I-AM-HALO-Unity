@@ -1,9 +1,7 @@
 fileFormatVersion: 2
 guid: 2220e024db81f3443b5f28f43498b32d
-timeCreated: 1459142991
-licenseType: Store
 ModelImporter:
-  serializedVersion: 19
+  serializedVersion: 22
   fileIDToRecycleName:
     100000: CG
     100002: Head
@@ -188,47 +186,42 @@ ModelImporter:
     9500000: //RootNode
     13700000: R
     13700002: H
+    2186277476908879412: ImportLogs
+  externalObjects: {}
   materials:
     importMaterials: 0
     materialName: 0
     materialSearch: 1
+    materialLocation: 0
   animations:
     legacyGenerateAnimations: 4
     bakeSimulation: 0
     resampleCurves: 1
     optimizeGameObjects: 0
     motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: "Copied Avatar Rig Configuration mis-match. Bone length in
+      copied configuration does not match position in animation file:\n\t'L Thigh'
+      : position error = 30.662596 mm\n"
     animationImportErrors: 
-    animationImportWarnings: "Copied Avatar Rig Configuration mis-match. Bone length
-      in copied configuration does not match position in animation file\nRider Sprint\nClip
-      'Take 001' has import animation warnings that might lower retargeting quality:\nNote:
-      Activate translation DOF on avatar to improve retargeting quality.\n\t'Spine'
-      has translation animation that will be discarded.\n\t'R Thigh' has translation
-      animation that will be discarded.\n\t'L Clavicle' has translation animation
-      that will be discarded.\n\t'R Clavicle' has translation animation that will
-      be discarded.\n\t'L Thigh' has translation animation that will be discarded.\n"
-    animationRetargetingWarnings: "\nRetargeting quality report for clip 'Take 001':\n\tLeftLowerLeg
-      average position error 49.8 mm and maximum position error 87.3 mm at time 1:21
-      (48.1%) Frame 51\n\tLeftFoot average position error 49.8 mm and maximum position
-      error 87.3 mm at time 1:21 (48.1%) Frame 51\n\tRightLowerLeg average position
-      error 54.7 mm and maximum position error 87.3 mm at time 1: 1 (29.2%) Frame
-      31\n\tRightFoot average position error 54.7 mm and maximum position error 87.3
-      mm at time 1: 1 (29.2%) Frame 31\n\tLeftUpperArm average position error 25.7
-      mm and maximum position error 50.0 mm at time 1: 1 (29.2%) Frame 31\n\tLeftLowerArm
-      average position error 25.8 mm and maximum position error 50.0 mm at time 1:
-      0 (28.3%) Frame 30\n\tLeftHand average position error 25.7 mm and maximum position
-      error 50.0 mm at time 1: 0 (28.3%) Frame 30\n\tRightUpperArm average position
-      error 27.2 mm and maximum position error 46.0 mm at time 1:20 (47.2%) Frame
-      50\n\tRightLowerArm average position error 27.2 mm and maximum position error
-      46.0 mm at time 1:20 (47.2%) Frame 50\n\tRightHand average position error 27.2
-      mm and maximum position error 46.0 mm at time 1:20 (47.2%) Frame 50\n"
+    animationImportWarnings: "\nClip 'Take 001' has import animation warnings that
+      might lower retargeting quality:\nNote: Activate translation DOF on avatar to
+      improve retargeting quality.\n\t'Spine' has translation animation that will
+      be discarded.\n\t'R Thigh' has translation animation that will be discarded.\n\t'L
+      Clavicle' has translation animation that will be discarded.\n\t'R Clavicle'
+      has translation animation that will be discarded.\n\t'L Thigh' has translation
+      animation that will be discarded.\n"
+    animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
     animationCompression: 0
     animationRotationError: 0.5
     animationPositionError: 0.5
     animationScaleError: 0.5
     animationWrapMode: 0
     extraExposedTransformPaths: []
+    extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
       name: R_Sprint
@@ -900,13 +893,18 @@ ModelImporter:
     globalScale: 1
     meshCompression: 0
     addColliders: 0
+    importVisibility: 0
     importBlendShapes: 0
+    importCameras: 0
+    importLights: 0
     swapUVChannels: 0
     generateSecondaryUV: 0
     useFileUnits: 1
     optimizeMeshForGPU: 1
     keepQuads: 0
     weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 1
     secondaryUVAngleDistortion: 8
     secondaryUVAreaDistortion: 15.000001
     secondaryUVHardAngle: 88
@@ -916,6 +914,7 @@ ModelImporter:
     normalSmoothAngle: 60
     normalImportMode: 0
     tangentImportMode: 3
+    normalCalculationMode: 0
   importAnimation: 1
   copyAvatar: 1
   humanDescription:

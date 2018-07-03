@@ -1,9 +1,7 @@
 fileFormatVersion: 2
 guid: 436cdd9efb2882b428e130f3c07fc9ef
-timeCreated: 1477064679
-licenseType: Store
 ModelImporter:
-  serializedVersion: 19
+  serializedVersion: 22
   fileIDToRecycleName:
     100000: ' Tail'
     100002: ' Tail1'
@@ -139,26 +137,34 @@ ModelImporter:
     7400020: F_Jump_Run_E
     9500000: //RootNode
     13700000: Tiger01
+    2186277476908879412: ImportLogs
+  externalObjects: {}
   materials:
     importMaterials: 0
     materialName: 0
     materialSearch: 1
+    materialLocation: 0
   animations:
     legacyGenerateAnimations: 4
     bakeSimulation: 0
     resampleCurves: 1
     optimizeGameObjects: 0
     motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
     animationImportErrors: 
     animationImportWarnings: 
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
     animationCompression: 0
     animationRotationError: 0.5
     animationPositionError: 0.5
     animationScaleError: 0.5
     animationWrapMode: 0
     extraExposedTransformPaths: []
+    extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
       name: F_Jump_InPlace
@@ -187,16 +193,24 @@ ModelImporter:
         curve:
           serializedVersion: 2
           curve:
-          - time: 0
+          - serializedVersion: 3
+            time: 0
             value: 0
             inSlope: 0
             outSlope: 0
             tangentMode: 0
-          - time: 1
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          - serializedVersion: 3
+            time: 1
             value: 0
             inSlope: 0
             outSlope: 0
             tangentMode: 0
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
           preInfinity: 3
           postInfinity: 3
           rotationOrder: 0
@@ -306,36 +320,60 @@ ModelImporter:
         curve:
           serializedVersion: 2
           curve:
-          - time: 0
+          - serializedVersion: 3
+            time: 0
             value: 1
             inSlope: 0
             outSlope: 0
             tangentMode: 0
-          - time: 0.0736042
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          - serializedVersion: 3
+            time: 0.0736042
             value: 1
             inSlope: 0
             outSlope: 0
             tangentMode: 0
-          - time: 0.09717154
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          - serializedVersion: 3
+            time: 0.09717154
             value: 0
             inSlope: 0
             outSlope: 0
             tangentMode: 0
-          - time: 0.77438736
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          - serializedVersion: 3
+            time: 0.77438736
             value: 0
             inSlope: 0
             outSlope: 0
             tangentMode: 0
-          - time: 0.7940446
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          - serializedVersion: 3
+            time: 0.7940446
             value: 1
             inSlope: 0
             outSlope: 0
             tangentMode: 0
-          - time: 1
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          - serializedVersion: 3
+            time: 1
             value: 1
             inSlope: 0
             outSlope: 0
             tangentMode: 0
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
           preInfinity: 3
           postInfinity: 3
           rotationOrder: 0
@@ -445,36 +483,60 @@ ModelImporter:
         curve:
           serializedVersion: 2
           curve:
-          - time: 0
+          - serializedVersion: 3
+            time: 0
             value: 1
             inSlope: 0
             outSlope: 0
             tangentMode: 0
-          - time: 0.13647641
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          - serializedVersion: 3
+            time: 0.13647641
             value: 1
             inSlope: 0
             outSlope: 0
             tangentMode: 0
-          - time: 0.16974264
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          - serializedVersion: 3
+            time: 0.16974264
             value: 0
             inSlope: 0
             outSlope: 0
             tangentMode: 0
-          - time: 0.7445882
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          - serializedVersion: 3
+            time: 0.7445882
             value: 0
             inSlope: 0
             outSlope: 0
             tangentMode: 0
-          - time: 0.76426786
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          - serializedVersion: 3
+            time: 0.76426786
             value: 1
             inSlope: 0
             outSlope: 0
             tangentMode: 0
-          - time: 1
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          - serializedVersion: 3
+            time: 1
             value: 1
             inSlope: 0
             outSlope: 0
             tangentMode: 0
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
           preInfinity: 3
           postInfinity: 3
           rotationOrder: 0
@@ -584,26 +646,42 @@ ModelImporter:
         curve:
           serializedVersion: 2
           curve:
-          - time: 0
+          - serializedVersion: 3
+            time: 0
             value: 1
             inSlope: 0
             outSlope: 0
             tangentMode: 0
-          - time: 0.46129033
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          - serializedVersion: 3
+            time: 0.46129033
             value: 1
             inSlope: 0
             outSlope: 0
             tangentMode: 0
-          - time: 0.7258064
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          - serializedVersion: 3
+            time: 0.7258064
             value: 0
             inSlope: 0
             outSlope: 0
             tangentMode: 0
-          - time: 1
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          - serializedVersion: 3
+            time: 1
             value: 0
             inSlope: 0
             outSlope: 0
             tangentMode: 0
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
           preInfinity: 3
           postInfinity: 3
           rotationOrder: 0
@@ -713,21 +791,33 @@ ModelImporter:
         curve:
           serializedVersion: 2
           curve:
-          - time: 0
+          - serializedVersion: 3
+            time: 0
             value: 0
             inSlope: 0
             outSlope: 0
             tangentMode: 0
-          - time: 0.1548388
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          - serializedVersion: 3
+            time: 0.1548388
             value: 1
             inSlope: 0
             outSlope: 0
             tangentMode: 0
-          - time: 1
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          - serializedVersion: 3
+            time: 1
             value: 1
             inSlope: 0
             outSlope: 0
             tangentMode: 0
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
           preInfinity: 3
           postInfinity: 3
           rotationOrder: 0
@@ -939,16 +1029,24 @@ ModelImporter:
         curve:
           serializedVersion: 2
           curve:
-          - time: 0
+          - serializedVersion: 3
+            time: 0
             value: 0
             inSlope: 0
             outSlope: 0
             tangentMode: 0
-          - time: 1
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          - serializedVersion: 3
+            time: 1
             value: 0
             inSlope: 0
             outSlope: 0
             tangentMode: 0
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
           preInfinity: 3
           postInfinity: 3
           rotationOrder: 0
@@ -1262,16 +1360,24 @@ ModelImporter:
         curve:
           serializedVersion: 2
           curve:
-          - time: 0
+          - serializedVersion: 3
+            time: 0
             value: 0
             inSlope: 0
             outSlope: 0
             tangentMode: 0
-          - time: 1
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          - serializedVersion: 3
+            time: 1
             value: 0
             inSlope: 0
             outSlope: 0
             tangentMode: 0
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
           preInfinity: 3
           postInfinity: 3
           rotationOrder: 0
@@ -1462,13 +1568,18 @@ ModelImporter:
     globalScale: 1
     meshCompression: 0
     addColliders: 0
+    importVisibility: 0
     importBlendShapes: 1
+    importCameras: 0
+    importLights: 0
     swapUVChannels: 0
     generateSecondaryUV: 0
     useFileUnits: 1
     optimizeMeshForGPU: 1
     keepQuads: 0
     weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 1
     secondaryUVAngleDistortion: 8
     secondaryUVAreaDistortion: 15.000001
     secondaryUVHardAngle: 88
@@ -1478,9 +1589,11 @@ ModelImporter:
     normalSmoothAngle: 60
     normalImportMode: 0
     tangentImportMode: 3
+    normalCalculationMode: 0
   importAnimation: 1
   copyAvatar: 1
   humanDescription:
+    serializedVersion: 2
     human: []
     skeleton: []
     armTwist: 0.5
@@ -1491,7 +1604,10 @@ ModelImporter:
     legStretch: 0.05
     feetSpacing: 0
     rootMotionBoneName: CG
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
     hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 0
   lastHumanDescriptionAvatarSource: {fileID: 9000000, guid: d68ec9c3512c3e2438f88a022f289f64,
     type: 3}
   animationType: 2
