@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class DrawLine : MonoBehaviour 
 {
-	public float minimumPointDistance = 1f;
+    public bool canDraw;
+    public float minimumPointDistance = 1f;
+    public float lineWidth = 1f;
 
 	LineRenderer currentLine;
 	bool drawing;
@@ -33,25 +35,17 @@ public class DrawLine : MonoBehaviour
 
 	int _n;
 	int n
-	{
-		get
-		{
-			_n++;
-			return _n;
-		}
-	}
-
-	bool shouldDraw
-	{
-		get
-		{
-			return Input.GetKey( KeyCode.Space );
-		}
-	}
+    {
+        get
+        {
+            _n++;
+            return _n;
+        }
+    }
 	
 	void Update () 
 	{
-		if (shouldDraw)
+		if (canDraw)
 		{
 			if (!drawing)
 			{
@@ -71,6 +65,7 @@ public class DrawLine : MonoBehaviour
 		currentLine = (Instantiate( Resources.Load( "Line" ) ) as GameObject).GetComponent<LineRenderer>();
 		currentLine.name = "Line" + n;
 		currentLine.transform.SetParent( lines );
+        currentLine.startWidth = currentLine.endWidth = lineWidth;
 		points.Clear();
 		points.Add( transform.position );
 	}

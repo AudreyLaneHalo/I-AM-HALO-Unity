@@ -12,30 +12,29 @@ namespace BL.Vive
 		Down
 	}
 
-//	[RequireComponent(typeof(SteamVR_TrackedObject))]
+	[RequireComponent(typeof(SteamVR_TrackedObject))]
 	public class ViveController : MonoBehaviour
 	{
 		public bool useDPadPress;
 		public bool useDPadHover;
 		public bool useTriggerInput;
 
-//		SteamVR_TrackedObject trackedObj;
-//		SteamVR_Controller.Device controller
-//		{
-//			get
-//			{
-//				if (trackedObj == null)
-//				{
-//					trackedObj = GetComponent<SteamVR_TrackedObject>();
-//				}
-//				return SteamVR_Controller.Input( (int)trackedObj.index );
-//			}
-//		}
+		SteamVR_TrackedObject trackedObj;
+		SteamVR_Controller.Device controller
+		{
+			get
+			{
+				if (trackedObj == null)
+				{
+					trackedObj = GetComponent<SteamVR_TrackedObject>();
+				}
+				return SteamVR_Controller.Input( (int)trackedObj.index );
+			}
+		}
 
 		Vector2 dPadPosition;
 		bool[] dPadHovering = new bool[4];
 
-		// Update is called once per frame
 		void Update ()
 		{
 			GetInput();
@@ -43,11 +42,11 @@ namespace BL.Vive
 
 		void GetInput ()
 		{
-//			if (controller == null)
-//			{
-//				Debug.LogWarning("Vive controller not initialized");
-//				return;
-//			}
+			if (controller == null)
+			{
+				Debug.LogWarning("Vive controller not initialized");
+				return;
+			}
 
 			if (useDPadHover)
 			{
@@ -59,13 +58,13 @@ namespace BL.Vive
 			}
 			if (useTriggerInput)
 			{
-				GetTrigger();
+                GetTrigger();
 			}
 		}
 
 		void GetDPadHover ()
 		{
-//			dPadPosition = controller.GetAxis();
+			dPadPosition = controller.GetAxis();
 
 			if (dPadPosition.y > 0.4f)
 			{
@@ -119,41 +118,41 @@ namespace BL.Vive
 
 		void GetDPadPress ()
 		{
-//			if (controller.GetPressUp(EVRButtonId.k_EButton_SteamVR_Touchpad))
-//			{
-//				if (dPadHovering[(int)DPadDirection.Up])
-//				{
-//					OnDPadUpPressed();
-//				}
-//				else if (dPadHovering[(int)DPadDirection.Left])
-//				{
-//					OnDPadLeftPressed();
-//				}
-//				else if (dPadHovering[(int)DPadDirection.Right])
-//				{
-//					OnDPadRightPressed();
-//				}
-//				else if (dPadHovering[(int)DPadDirection.Down])
-//				{
-//					OnDPadDownPressed();
-//				}
-//			}
+			if (controller.GetPressUp(SteamVR_Controller.ButtonMask.Touchpad))
+			{
+				if (dPadHovering[(int)DPadDirection.Up])
+				{
+					OnDPadUpPressed();
+				}
+				else if (dPadHovering[(int)DPadDirection.Left])
+				{
+					OnDPadLeftPressed();
+				}
+				else if (dPadHovering[(int)DPadDirection.Right])
+				{
+					OnDPadRightPressed();
+				}
+				else if (dPadHovering[(int)DPadDirection.Down])
+				{
+					OnDPadDownPressed();
+				}
+			}
 		}
 
 		void GetTrigger ()
 		{
-//			if (controller.GetPressDown(SteamVR_Controller.ButtonMask.Trigger))
-//			{
-//				OnTriggerDown();
-//			}
-//	        else if (controller.GetPress(SteamVR_Controller.ButtonMask.Trigger))
-//	        {
-//	            OnTriggerStay();
-//	        }
-//			if (controller.GetPressUp(SteamVR_Controller.ButtonMask.Trigger))
-//			{
-//				OnTriggerUp();
-//			}
+            if (controller.GetPressDown(SteamVR_Controller.ButtonMask.Trigger))
+			{
+                OnTriggerDown();
+			}
+	        else if (controller.GetPress(SteamVR_Controller.ButtonMask.Trigger))
+	        {
+                OnTriggerStay();
+	        }
+			if (controller.GetPressUp(SteamVR_Controller.ButtonMask.Trigger))
+			{
+                OnTriggerUp();
+			}
 		}
 
 		public virtual void OnDPadUpEnter () { }

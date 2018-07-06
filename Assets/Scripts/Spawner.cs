@@ -4,18 +4,23 @@ using UnityEngine;
 
 public class Spawner : MonoBehaviour
 {
-    public GameObject prefab;
-    public int n;
-    public float radius;
+    public GameObject[] prefabs;
+    public int n = 10;
+    public Vector2 scaleRange = new Vector2( 0.8f, 1.2f );
 
-	void Start ()
+    GameObject prefab
     {
-        GameObject obj;
-        for (int i = 0; i < n; i++)
+        get
         {
-            obj = Instantiate( prefab, transform );
-            obj.transform.localPosition = Random.Range( 0.1f, radius ) * Random.onUnitSphere;
-            obj.transform.rotation = Random.rotation;
+            return prefabs[Random.Range(0, prefabs.Length)];
         }
-	}
+    }
+
+    protected void SpawnObject (Vector3 position, Quaternion rotation)
+    {
+        GameObject obj = Instantiate( prefab, transform );
+        obj.transform.localPosition = position;
+        obj.transform.localRotation = rotation;
+        obj.transform.localScale = Random.Range( scaleRange.x, scaleRange.y ) * Vector3.one;
+    }
 }
