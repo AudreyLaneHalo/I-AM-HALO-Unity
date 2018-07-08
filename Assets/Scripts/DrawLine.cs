@@ -8,6 +8,8 @@ public class DrawLine : MonoBehaviour
     public float segmentLength = 0.1f;
     public float lineWidth = 0.2f;
     public Color[] colors;
+    public float lineLifetime = 7f;
+    public float lineFadeTime = 5f;
 
 	LineRenderer currentLine;
 	bool drawing;
@@ -68,6 +70,9 @@ public class DrawLine : MonoBehaviour
 		currentLine.transform.SetParent( lines );
         currentLine.startWidth = currentLine.endWidth = lineWidth;
         currentLine.material.SetColor( "_TintColor", colors[Random.Range(0, colors.Length)] );
+        LineFader fader = currentLine.GetComponent<LineFader>();
+        fader.lifetime = lineLifetime;
+        fader.fadeTime = lineFadeTime;
 		points.Clear();
 		points.Add( transform.position );
 	}
