@@ -5,11 +5,9 @@ using UnityEngine.EventSystems;
 
 namespace BL.Vive
 {
+    [RequireComponent( typeof(DrawLine) )]
     public class DrawViveController : ViveController
     {
-        public float segmentLength = 0.1f;
-        public float lineWidth = 0.2f;
-
         DrawLine _drawer;
         DrawLine drawer
         {
@@ -17,9 +15,7 @@ namespace BL.Vive
             {
                 if (_drawer == null)
                 {
-                    _drawer = gameObject.AddComponent<DrawLine>();
-                    _drawer.minimumPointDistance = segmentLength;
-                    _drawer.lineWidth = lineWidth;
+                    _drawer = gameObject.GetComponent<DrawLine>();
                 }
                 return _drawer;
             }
@@ -27,7 +23,6 @@ namespace BL.Vive
 
         public override void OnTriggerDown()
         {
-            Debug.Log( "draw" );
             drawer.canDraw = true;
         }
 

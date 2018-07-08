@@ -5,8 +5,9 @@ using UnityEngine;
 public class DrawLine : MonoBehaviour 
 {
     public bool canDraw;
-    public float minimumPointDistance = 1f;
-    public float lineWidth = 1f;
+    public float segmentLength = 0.1f;
+    public float lineWidth = 0.2f;
+    public Color[] colors;
 
 	LineRenderer currentLine;
 	bool drawing;
@@ -42,8 +43,8 @@ public class DrawLine : MonoBehaviour
             return _n;
         }
     }
-	
-	void Update () 
+
+    void Update () 
 	{
 		if (canDraw)
 		{
@@ -66,13 +67,14 @@ public class DrawLine : MonoBehaviour
 		currentLine.name = "Line" + n;
 		currentLine.transform.SetParent( lines );
         currentLine.startWidth = currentLine.endWidth = lineWidth;
+        currentLine.material.SetColor( "_TintColor", colors[Random.Range(0, colors.Length)] );
 		points.Clear();
 		points.Add( transform.position );
 	}
 
 	void UpdateLine ()
 	{
-		if (Vector3.Distance( transform.position, lastPoint ) >= minimumPointDistance)
+		if (Vector3.Distance( transform.position, lastPoint ) >= segmentLength)
 		{
 			points.Add( transform.position );
 			currentLine.positionCount = points.Count;
