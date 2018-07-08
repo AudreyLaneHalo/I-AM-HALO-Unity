@@ -1,6 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
-//using Valve.VR;
 
 namespace BL.Vive
 {
@@ -18,8 +16,9 @@ namespace BL.Vive
 		public bool useDPadPress;
 		public bool useDPadHover;
 		public bool useTriggerInput;
+        public bool useGripInput;
 
-		SteamVR_TrackedObject trackedObj;
+        SteamVR_TrackedObject trackedObj;
 		SteamVR_Controller.Device controller
 		{
 			get
@@ -60,6 +59,10 @@ namespace BL.Vive
 			{
                 GetTrigger();
 			}
+            if (useGripInput)
+            {
+                GetGrip();
+            }
 		}
 
 		void GetDPadHover ()
@@ -155,6 +158,22 @@ namespace BL.Vive
 			}
 		}
 
+        void GetGrip ()
+        {
+            if (controller.GetPressDown(SteamVR_Controller.ButtonMask.Grip))
+            {
+                OnGripDown();
+            }
+            else if (controller.GetPress(SteamVR_Controller.ButtonMask.Grip))
+            {
+                OnGripStay();
+            }
+            else if (controller.GetPressUp(SteamVR_Controller.ButtonMask.Grip))
+            {
+                OnGripUp();
+            }
+        }
+
 		public virtual void OnDPadUpEnter () { }
 
 		public virtual void OnDPadLeftEnter () { }
@@ -178,5 +197,11 @@ namespace BL.Vive
 		public virtual void OnTriggerStay () { }
 
 		public virtual void OnTriggerUp () { }
-	}
+
+        public virtual void OnGripDown() { }
+
+        public virtual void OnGripStay() { }
+
+        public virtual void OnGripUp() { }
+    }
 }
