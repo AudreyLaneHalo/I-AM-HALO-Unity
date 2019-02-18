@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class RotateCamera : MonoBehaviour
 {
-    Vector3 incrementVector = new Vector3(0, 0.1f, 0);
-    float pushSpeed = 0.005f;
+    public Vector3 incrementVector = new Vector3(0, 0.1f, 0);
+    public float pushSpeed = 0.005f;
+
     int directionRotate = 1;
     int directionPush = 1;
     float lastPushTime;
