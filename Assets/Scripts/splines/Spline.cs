@@ -4,6 +4,18 @@ using UnityEngine;
 
 namespace BL.Splines
 {
+    public class SplinePosition
+    {
+        public int pointIndex;
+        public float sectionT;
+
+        public SplinePosition(int _pointIndex, float _sectionT)
+        {
+            pointIndex = _pointIndex;
+            sectionT = _sectionT;
+        }
+    }
+
     [System.Serializable]
     public class SplinePoint
     {
@@ -37,18 +49,16 @@ namespace BL.Splines
 
         void Update()
         {
-            UpdateSpline();
-        }
-
-        public bool UpdateSpline()
-        {
             if (needToUpdate)
             {
-                CalculateCurve();
-                UpdateDraw();
-                return true;
+                UpdateSpline();
             }
-            return false;
+        }
+
+        public void UpdateSpline()
+        {
+            CalculateCurve();
+            UpdateDraw();
         }
 
         // ---------------------------------------------- Length
@@ -250,7 +260,7 @@ namespace BL.Splines
             {
                 if (_normalTransform == null)
                 {
-                    _normalTransform = transform.FindChild("Normal");
+                    _normalTransform = transform.Find("Normal");
                     if (_normalTransform == null)
                     {
                         _normalTransform = new GameObject("Normal").transform;
@@ -272,7 +282,7 @@ namespace BL.Splines
 
         // ---------------------------------------------- 
 
-        CubicSplinePosition GetSplinePositionForT(float t)
+        SplinePosition GetSplinePositionForT(float t)
         {
             float tLength = t * length;
             float currentLength = 0;
@@ -281,16 +291,16 @@ namespace BL.Splines
                 float arcLength = calculatedPoints[i].arcLength;
                 if (tLength < currentLength + arcLength)
                 {
-                    return new CubicSplinePosition(i - 1, (tLength - currentLength) / arcLength);
+                    return new SplinePosition(i - 1, (tLength - currentLength) / arcLength);
                 }
                 currentLength += arcLength;
             }
-            return new CubicSplinePosition(calculatedPoints.Length - 2, 1f);
+            return new SplinePosition(calculatedPoints.Length - 2, 1f);
         }
 
         public Vector3 GetPosition(float t)
         {
-            CubicSplinePosition splinePosition = GetSplinePositionForT(t);
+            SplinePosition splinePosition = GetSplinePositionForT(t);
             Vector3 startPosition = calculatedPoints[splinePosition.pointIndex].position;
             Vector3 endPosition = calculatedPoints[splinePosition.pointIndex + 1].position;
             return Vector3.Lerp(startPosition, endPosition, splinePosition.sectionT) - transform.position;
@@ -298,7 +308,7 @@ namespace BL.Splines
 
         public Vector3 GetTangent(float t)
         {
-            CubicSplinePosition splinePosition = GetSplinePositionForT(t);
+            SplinePosition splinePosition = GetSplinePositionForT(t);
             Vector3 startTangent = calculatedPoints[splinePosition.pointIndex].tangent;
             Vector3 endTangent = calculatedPoints[splinePosition.pointIndex + 1].tangent;
             return Vector3.Lerp(startTangent, endTangent, splinePosition.sectionT);
@@ -306,7 +316,7 @@ namespace BL.Splines
 
         public Vector3 GetNormal(float t)
         {
-            CubicSplinePosition splinePosition = GetSplinePositionForT(t);
+            SplinePosition splinePosition = GetSplinePositionForT(t);
             Quaternion startRotation = calculatedPoints[splinePosition.pointIndex].rotation;
             Quaternion endRotation = calculatedPoints[splinePosition.pointIndex + 1].rotation;
             normalTransform.rotation = Quaternion.Slerp(startRotation, endRotation, splinePosition.sectionT);

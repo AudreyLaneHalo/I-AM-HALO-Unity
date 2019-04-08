@@ -4,18 +4,6 @@ using UnityEngine;
 
 namespace BL.Splines
 {
-    public class CubicSplinePosition
-    {
-        public int pointIndex;
-        public float sectionT;
-
-        public CubicSplinePosition (int _pointIndex, float _sectionT)
-        {
-            pointIndex = _pointIndex;
-            sectionT = _sectionT;
-        }
-    }
-
     public class NaturalCubicSpline : Spline 
     {
         // ---------------------------------------------- Calculation

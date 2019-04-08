@@ -1,13 +1,46 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using BL;
 
 public class PivotSwitcher : MonoBehaviour 
 {
-    public Transform observer;
     public Pivot[] pivots;
 
+    int lastIndex;
     int currentIndex;
+    bool switching;
+    PathToNextPivot lastPath;
+
+    FollowSpline _followSpline;
+    FollowSpline followSpline
+    {
+        get
+        {
+            if (_followSpline == null)
+            {
+                _followSpline = GetComponent<FollowSpline>();
+                if (_followSpline == null)
+                {
+                    _followSpline = gameObject.AddComponent<FollowSpline>();
+                }
+            }
+            return _followSpline;
+        }
+    }
+
+    AmbientCameraMover _cameraMover;
+    AmbientCameraMover cameraMover
+    {
+        get
+        {
+            if (_cameraMover == null)
+            {
+                _cameraMover = GetComponent<AmbientCameraMover>();
+            }
+            return _cameraMover;
+        }
+    }
 
     void Start ()
     {
@@ -16,31 +49,70 @@ public class PivotSwitcher : MonoBehaviour
             pivots[i].ToggleWorlds( i == currentIndex );
         }
 
-        observer.position = pivots[currentIndex].transform.position;
-        observer.rotation = pivots[currentIndex].transform.rotation;
+        transform.position = pivots[currentIndex].transform.position;
+        transform.rotation = pivots[currentIndex].transform.rotation;
     }
 
 	void Update () 
     {
-        if (Input.GetKeyUp( KeyCode.UpArrow ))
+        if (switching)
         {
-            SwitchToPivot( currentIndex + 1 >= pivots.Length ? 0 : currentIndex + 1 );
+            followSpline.GoToNextSplinePosition(false);
         }
-        if (Input.GetKeyUp(KeyCode.DownArrow))
+        else
         {
-            SwitchToPivot( currentIndex - 1 < 0 ? pivots.Length - 1 : currentIndex - 1 );
+            if (Input.GetKeyUp(KeyCode.UpArrow))
+            {
+                SwitchToPivot(currentIndex + 1 >= pivots.Length ? 0 : currentIndex + 1);
+            }
+            if (Input.GetKeyUp(KeyCode.DownArrow))
+            {
+                SwitchToPivot(currentIndex - 1 < 0 ? pivots.Length - 1 : currentIndex - 1);
+            }
         }
+
 	}
 
     void SwitchToPivot (int index)
     {
-        Debug.Log("Switch to " + index);
-        pivots[currentIndex].ToggleWorlds( false );
-        pivots[index].ToggleWorlds( true );
+        lastPath = pivots[currentIndex].GetPathToPivot(pivots[index].name);
+        if (lastPath == null)
+        {
+            Debug.Log(pivots[currentIndex].name + " has no path to " + pivots[index].name);
+            return;
+        }
 
-        observer.position = pivots[index].transform.position;
-        observer.rotation = pivots[index].transform.rotation;
+        Debug.Log("Switch to " + pivots[index].name);
 
+        cameraMover.ambientlyRotate = false;
+
+        followSpline.Setup(transform.eulerAngles, pivots[index].transform.rotation, lastPath.splineToNextPivot, FinishSwitching);
+        followSpline.NotifyOnPercent(lastPath.worldBoundaryPercentOnSpline.x, StartSwitchWorlds);
+
+        lastIndex = currentIndex;
         currentIndex = index;
+        switching = true;
+    }
+
+    void StartSwitchWorlds ()
+    {
+        pivots[currentIndex].ToggleWorlds(true);
+        followSpline.NotifyOnPercent(lastPath.worldBoundaryPercentOnSpline.y, FinishSwitchWorlds);
+    }
+
+    void FinishSwitchWorlds()
+    {
+        if (lastIndex != currentIndex)
+        {
+            pivots[lastIndex].ToggleWorlds(false);
+        }
+    }
+
+    void FinishSwitching ()
+    {
+        switching = false;
+
+        transform.position = pivots[currentIndex].transform.position;
+        cameraMover.ambientlyRotate = true;
     }
 }
