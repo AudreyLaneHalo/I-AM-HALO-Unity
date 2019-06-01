@@ -28,4 +28,5 @@ public class PathToNextPivot
     public string destinationName;
     public Spline splineToNextPivot;
     public Vector2 worldBoundaryPercentOnSpline = new Vector2(40f, 60f);
+    public float speed;
 }

@@ -46,7 +46,6 @@ public class AmbientCameraMover : MonoBehaviour
         {
             startPush = observer.localPosition.magnitude;
             goalPush = startPush + pushDirection * pushTime * 0.01f * pushSpeed * Random.value;
-            print(goalPush);
             pushDirection *= -1;
             lastPushTime = Time.time;
             pushTime = Random.Range(2f, 4f);

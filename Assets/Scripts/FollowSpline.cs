@@ -19,7 +19,7 @@ public class FollowSpline : MonoBehaviour
 
     Vector3 startRotationAngles;
     Quaternion finalRotation;
-    float currentT;
+    [SerializeField] float currentT;
     bool notifyOnPercentage;
     bool setNotifyNextFrame;
 
@@ -31,12 +31,14 @@ public class FollowSpline : MonoBehaviour
         }
 	}
 
-    public void Setup (Vector3 _startRotationAngles, Quaternion _finalRotation, Spline _spline, SplineEventDelegate _OnReachEndOfSpline)
+    public void Setup (Vector3 _startRotationAngles, Quaternion _finalRotation, Spline _spline, float _speed, SplineEventDelegate _OnReachEndOfSpline)
     {
         startRotationAngles = _startRotationAngles;
         finalRotation = _finalRotation;
         spline = _spline;
         OnReachEndOfSpline = _OnReachEndOfSpline;
+        speed = _speed;
+        currentT = 0f;
     }
 
     public void NotifyOnPercent (float percent, SplineEventDelegate OnPercent)

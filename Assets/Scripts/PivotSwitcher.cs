@@ -10,7 +10,7 @@ public class PivotSwitcher : MonoBehaviour
     int lastIndex;
     int currentIndex;
     bool switching;
-    PathToNextPivot lastPath;
+    [SerializeField] PathToNextPivot currentPath;
 
     FollowSpline _followSpline;
     FollowSpline followSpline
@@ -75,8 +75,8 @@ public class PivotSwitcher : MonoBehaviour
 
     void SwitchToPivot (int index)
     {
-        lastPath = pivots[currentIndex].GetPathToPivot(pivots[index].name);
-        if (lastPath == null)
+        currentPath = pivots[currentIndex].GetPathToPivot(pivots[index].name);
+        if (currentPath == null)
         {
             Debug.Log(pivots[currentIndex].name + " has no path to " + pivots[index].name);
             return;
@@ -86,8 +86,8 @@ public class PivotSwitcher : MonoBehaviour
 
         cameraMover.ambientlyRotate = false;
 
-        followSpline.Setup(transform.eulerAngles, pivots[index].transform.rotation, lastPath.splineToNextPivot, FinishSwitching);
-        followSpline.NotifyOnPercent(lastPath.worldBoundaryPercentOnSpline.x, StartSwitchWorlds);
+        followSpline.Setup(transform.eulerAngles, pivots[index].transform.rotation, currentPath.splineToNextPivot, currentPath.speed, FinishSwitching);
+        followSpline.NotifyOnPercent(currentPath.worldBoundaryPercentOnSpline.x, StartSwitchWorlds);
 
         lastIndex = currentIndex;
         currentIndex = index;
@@ -97,7 +97,7 @@ public class PivotSwitcher : MonoBehaviour
     void StartSwitchWorlds ()
     {
         pivots[currentIndex].ToggleWorlds(true);
-        followSpline.NotifyOnPercent(lastPath.worldBoundaryPercentOnSpline.y, FinishSwitchWorlds);
+        followSpline.NotifyOnPercent(currentPath.worldBoundaryPercentOnSpline.y, FinishSwitchWorlds);
     }
 
     void FinishSwitchWorlds()
