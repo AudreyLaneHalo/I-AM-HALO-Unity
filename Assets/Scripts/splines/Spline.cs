@@ -274,7 +274,7 @@ namespace BL.Splines
 
         Quaternion CalculateRotation(Vector3 position, Vector3 tangent)
         {
-            float angle = 180f * Mathf.Acos(Vector3.Dot(normalTransform.forward, tangent)) / Mathf.PI;
+            float angle = 180f * Mathf.Acos(Mathf.Max(-1f, Mathf.Min(1f, Vector3.Dot(normalTransform.forward, tangent)))) / Mathf.PI;
             Vector3 axis = Vector3.Normalize(Vector3.Cross(normalTransform.forward, tangent));
             normalTransform.RotateAround(position, axis, angle);
             return normalTransform.rotation;
