@@ -44,11 +44,6 @@ public class PivotSwitcher : MonoBehaviour
 
     void Start ()
     {
-        for (int i = 0; i < pivots.Length; i++)
-        {
-            pivots[i].ToggleWorlds( i == currentIndex );
-        }
-
         transform.position = pivots[currentIndex].transform.position;
         transform.rotation = pivots[currentIndex].transform.rotation;
     }
@@ -86,26 +81,12 @@ public class PivotSwitcher : MonoBehaviour
 
         cameraMover.ambientlyRotate = false;
 
-        followSpline.Setup(transform.eulerAngles, pivots[index].transform.rotation, currentPath.splineToNextPivot, currentPath.speed, FinishSwitching);
-        followSpline.NotifyOnPercent(currentPath.worldBoundaryPercentOnSpline.x, StartSwitchWorlds);
+        followSpline.Setup(transform.eulerAngles, pivots[index].transform.rotation, 
+            currentPath.splineToNextPivot, currentPath.speed, FinishSwitching);
 
         lastIndex = currentIndex;
         currentIndex = index;
         switching = true;
-    }
-
-    void StartSwitchWorlds ()
-    {
-        pivots[currentIndex].ToggleWorlds(true);
-        followSpline.NotifyOnPercent(currentPath.worldBoundaryPercentOnSpline.y, FinishSwitchWorlds);
-    }
-
-    void FinishSwitchWorlds()
-    {
-        if (lastIndex != currentIndex)
-        {
-            pivots[lastIndex].ToggleWorlds(false);
-        }
     }
 
     void FinishSwitching ()
