@@ -4,26 +4,32 @@ using UnityEngine;
 
 public class GeometryOptimizer : MonoBehaviour
 {
-    MeshRenderer _theRenderer;
-    MeshRenderer theRenderer
+    MeshRenderer[] _renderers;
+    MeshRenderer[] renderers
     {
         get
         {
-            if (_theRenderer == null)
+            if (_renderers == null)
             {
-                _theRenderer = GetComponent<MeshRenderer>();
+                _renderers = GetComponentsInChildren<MeshRenderer>();
             }
-            return _theRenderer;
+            return _renderers;
         }
     }
 
     void OnTriggerEnter (Collider other)
     {
-        theRenderer.enabled = true;
+        foreach (MeshRenderer _renderer in renderers)
+        {
+            _renderer.enabled = true;
+        }
     }
 
     void OnTriggerExit(Collider other)
     {
-        theRenderer.enabled = false;
+        foreach (MeshRenderer _renderer in renderers)
+        {
+            _renderer.enabled = false;
+        }
     }
 }
