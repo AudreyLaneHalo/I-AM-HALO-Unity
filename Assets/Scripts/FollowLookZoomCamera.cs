@@ -26,6 +26,10 @@ public class FollowLookZoomCamera : MonoBehaviour
 	float animationStartTime;
 	bool animateTilt = false;
     bool interacting = false;
+    float lastInteractTime = -100f;
+    Quaternion startTiltRotation;
+    Quaternion startLookRotation;
+    float interactTime = 1f;
 
 	static FollowLookZoomCamera _Instance;
 	public static FollowLookZoomCamera Instance
@@ -163,6 +167,9 @@ public class FollowLookZoomCamera : MonoBehaviour
                 tiltAngle = pivot.localRotation.eulerAngles.x;
                 if (tiltAngle > 180f) { tiltAngle -= 360f; }
                 tiltAngle = Mathf.Clamp( tiltAngle, tiltLimits.x, tiltLimits.y );
+                startTiltRotation = pivot.localRotation;
+                startLookRotation = transform.localRotation;
+                lastInteractTime = Time.time;
             }
 			HandleRotationInput();
             interacting = true;
@@ -173,10 +180,13 @@ public class FollowLookZoomCamera : MonoBehaviour
     {
         if (!dragging)
         {
-            if (interacting)
+            if (Time.time - lastInteractTime > interactTime && interacting)
             {
                 ambientMover.StartPush();
                 ambientMover.StartRotation();
+                startTiltRotation = pivot.localRotation;
+                startLookRotation = transform.localRotation;
+                lastInteractTime = Time.time;
             }
             ambientMover.AmbientlyRotate();
             interacting = false;
@@ -200,8 +210,11 @@ public class FollowLookZoomCamera : MonoBehaviour
 
 	void SetRotation ()
 	{
-		pivot.localRotation = goalTiltRotation;
-		transform.localRotation = goalLookRotation;
+//		pivot.localRotation = goalTiltRotation;
+//		transform.localRotation = goalLookRotation;
+        
+        pivot.localRotation = Quaternion.Slerp(startTiltRotation, goalTiltRotation, Mathf.SmoothStep(0, 1f, (Time.time - lastInteractTime) / interactTime));
+        transform.localRotation = Quaternion.Slerp(startLookRotation, goalLookRotation, Mathf.SmoothStep(0, 1f, (Time.time - lastInteractTime) / interactTime));
 	}
 
 	public void LookAtTarget ()
