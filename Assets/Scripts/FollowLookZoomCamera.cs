@@ -125,7 +125,8 @@ public class FollowLookZoomCamera : MonoBehaviour
 	{
 		DragToLook();
 		AnimateRotation();
-		ScrollToZoom();
+//		ScrollToZoom();
+        ZoomWithKeys();
 	}
 
 	// ----------------------------------------------------------------------------------- Follow
@@ -144,6 +145,7 @@ public class FollowLookZoomCamera : MonoBehaviour
 		{
 			FollowTarget();
             DoAmbientLook();
+            DoAmbientZoom();
 		}
 	}
 
@@ -182,7 +184,6 @@ public class FollowLookZoomCamera : MonoBehaviour
         {
             if (Time.time - lastInteractTime > interactTime && interacting)
             {
-                ambientMover.StartPush();
                 ambientMover.StartRotation();
                 startTiltRotation = pivot.localRotation;
                 startLookRotation = transform.localRotation;
@@ -198,11 +199,11 @@ public class FollowLookZoomCamera : MonoBehaviour
 //		var x = CrossPlatformInputManager.GetAxis("Mouse X");
 //		var y = CrossPlatformInputManager.GetAxis("Mouse Y");
 
-        var x = (Input.GetKey(KeyCode.RightArrow) ? -1 : 0) + (Input.GetKey(KeyCode.LeftArrow) ? 1 : 0);
+        var x = (Input.GetKey(KeyCode.LeftArrow) ? -1 : 0) + (Input.GetKey(KeyCode.RightArrow) ? 1 : 0);
 		var y = (Input.GetKey(KeyCode.DownArrow) ? -1 : 0) + (Input.GetKey(KeyCode.UpArrow) ? 1 : 0);
 
-		lookAngle += x * lookSpeed;
-		tiltAngle -= y * lookSpeed;
+		lookAngle += x * lookSpeed * (Input.GetKey(KeyCode.Space) ? 10 : 1);
+		tiltAngle -= y * lookSpeed * (Input.GetKey(KeyCode.Space) ? 10 : 1);
 		tiltAngle = Mathf.Clamp( tiltAngle, tiltLimits.x, tiltLimits.y );
 
 		SetRotation();
@@ -269,44 +270,76 @@ public class FollowLookZoomCamera : MonoBehaviour
 	}
 
 	// ----------------------------------------------------------------------------------- Zoom
+    
+    int zoomDirection 
+    {
+        get
+        {
+            int dir = 0;
+            if (Input.GetKey( zoomInKey ))
+            {
+                dir++;
+            }
+            else if (Input.GetKey( zoomOutKey ))
+            {
+                dir--;
+            }
+            return dir;
+        }
+    }
 
 	void ScrollToZoom ()
 	{
-		float scroll = 0;
 		if (useScrollToZoom)
 		{
-			scroll = CrossPlatformInputManager.GetAxis( "Mouse ScrollWheel" );
+            Zoom(Mathf.RoundToInt(CrossPlatformInputManager.GetAxis( "Mouse ScrollWheel" )), zoomSpeedScroll);
+            return;
 		}
-
-		float arrow = 0;
-		if (Input.GetKey( zoomInKey ))
+        
+//		float speed = zoomSpeedArrows;
+//		Zoom(zoomDirection);
+	}
+    
+    bool overridingZoom = false;
+    
+    void ZoomWithKeys ()
+	{
+        int dir = zoomDirection;
+		if (dir != 0)
 		{
-			arrow = 1f;
+			Zoom(dir, zoomSpeedArrows);
+            overridingZoom = true;
 		}
-		else if (Input.GetKey( zoomOutKey ))
-		{
-			arrow = -1f;
-		}
-
-		float speed = zoomSpeedArrows;
-		if (scroll != 0)
-		{
-			speed = zoomSpeedScroll;
-		}
-
-		if (scroll > 0 || arrow > 0) // zoom in
+	}
+    
+    void DoAmbientZoom ()
+    {
+        if (zoomDirection == 0)
+        {
+            if (overridingZoom)
+            {
+                ambientMover.StartPush();
+            }
+            ambientMover.AmbientlyPush();
+            overridingZoom = false;
+        }
+    }
+    
+    void Zoom (int delta, float speed)
+    {
+        if (delta > 0) // zoom in
 		{
 			if (cam.localPosition.z < -Mathf.Abs( zoomLimits.x ))
 			{
 				cam.localPosition += speed * Vector3.forward;
 			}
 		}
-		else if (scroll < 0 || arrow < 0) // zoom out
+		else if (delta < 0) // zoom out
 		{
 			if (cam.localPosition.z > -Mathf.Abs( zoomLimits.y ))
 			{
 				cam.localPosition -= speed * Vector3.forward;
 			}
 		}
-	}
+    }
 }

@@ -27,7 +27,7 @@ public class AmbientCameraMover : MonoBehaviour
         {
             if (_observer == null)
             {
-                _observer = transform.GetChild(0);
+                _observer = transform.GetChild(0).GetChild(0);
             }
             return _observer;
         }
@@ -37,7 +37,7 @@ public class AmbientCameraMover : MonoBehaviour
     {
         if (ambientlyRotate)
         {
-            AmbientlyRotate();
+            AmbientlyMove();
         }
     }
     
@@ -59,19 +59,27 @@ public class AmbientCameraMover : MonoBehaviour
         rotateTime = Random.Range(12f, 20f);
     }
 
-    public void AmbientlyRotate ()
+    public void AmbientlyMove ()
+    {
+        AmbientlyRotate();
+        AmbientlyPush();
+    }
+
+    public void AmbientlyPush ()
     {
         if (Time.time - lastPushTime > pushTime)
         {
             StartPush();
         }
+        observer.localPosition = Vector3.Lerp(startPush * Vector3.back, goalPush * Vector3.back, Mathf.SmoothStep(0, 1f, (Time.time - lastPushTime) / pushTime));
+    }
 
+    public void AmbientlyRotate ()
+    {
         if (Time.time - lastRotateTime > rotateTime)
         {
             StartRotation();
         }
-
-        transform.rotation = Quaternion.Slerp(startRotation, goalRotation, Mathf.SmoothStep(0, 1f, (Time.time - lastRotateTime) / rotateTime));
-        observer.localPosition = Vector3.Lerp(startPush * Vector3.back, goalPush * Vector3.back, Mathf.SmoothStep(0, 1f, (Time.time - lastPushTime) / pushTime));
+        transform.rotation = Quaternion.Slerp(startRotation, Quaternion.Euler(new Vector3(0, goalRotation.eulerAngles.y, 0)), Mathf.SmoothStep(0, 1f, (Time.time - lastRotateTime) / rotateTime));
     }
 }
