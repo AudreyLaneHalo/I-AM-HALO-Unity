@@ -6,6 +6,7 @@ public class AmbientCameraMover : MonoBehaviour
 {
     public float rotateSpeed = 5f;
     public float pushSpeed = 5f;
+    public Vector2 zoomRange = new Vector2(1f, 2f);
     public bool ambientlyRotate = true;
 
     float pushTime = 3f;
@@ -45,7 +46,7 @@ public class AmbientCameraMover : MonoBehaviour
         if (Time.time - lastPushTime > pushTime)
         {
             startPush = observer.localPosition.magnitude;
-            goalPush = startPush + pushDirection * pushTime * 0.01f * pushSpeed * Random.value;
+            goalPush = Mathf.Clamp(startPush + pushDirection * pushTime * 0.01f * pushSpeed * Random.value, zoomRange.x, zoomRange.y);
             pushDirection *= -1;
             lastPushTime = Time.time;
             pushTime = Random.Range(2f, 4f);

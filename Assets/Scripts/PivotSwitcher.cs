@@ -6,6 +6,7 @@ using BL;
 public class PivotSwitcher : MonoBehaviour 
 {
     public Pivot[] pivots;
+    public AmbientCameraMover cameraMover;
 
     int lastIndex;
     int currentIndex;
@@ -26,19 +27,6 @@ public class PivotSwitcher : MonoBehaviour
                 }
             }
             return _followSpline;
-        }
-    }
-
-    AmbientCameraMover _cameraMover;
-    AmbientCameraMover cameraMover
-    {
-        get
-        {
-            if (_cameraMover == null)
-            {
-                _cameraMover = GetComponent<AmbientCameraMover>();
-            }
-            return _cameraMover;
         }
     }
 

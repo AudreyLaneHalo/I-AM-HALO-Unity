@@ -67,6 +67,11 @@ public class FollowSpline : MonoBehaviour
         if (currentT > 1f)
         {
             currentT = loop ? 0 : 1f;
+            UpdatePosition(currentT);
+            if (followRotationX || followRotationY || followRotationZ)
+            {
+                UpdateRotation(currentT);
+            }
             if (OnReachEndOfSpline != null)
             {
                 OnReachEndOfSpline();
