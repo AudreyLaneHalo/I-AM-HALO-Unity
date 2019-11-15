@@ -25,6 +25,7 @@ public class FollowLookZoomCamera : MonoBehaviour
 	bool animatingLook;
 	float animationStartTime;
 	bool animateTilt = false;
+    bool interacting = false;
 
 	static FollowLookZoomCamera _Instance;
 	public static FollowLookZoomCamera Instance
@@ -78,11 +79,26 @@ public class FollowLookZoomCamera : MonoBehaviour
 		}
 	}
 
+	AmbientCameraMover _ambientMover;
+	AmbientCameraMover ambientMover
+	{
+		get
+		{
+			if (_ambientMover == null)
+			{
+				_ambientMover = GetComponentInChildren<AmbientCameraMover>();
+			}
+			return _ambientMover;
+		}
+	}
+
 	bool dragging
 	{
 		get
 		{
-			return CrossPlatformInputManager.GetButton( "Fire1" ) && !EventSystem.current.IsPointerOverGameObject();
+//			return CrossPlatformInputManager.GetButton( "Fire1" ) && !EventSystem.current.IsPointerOverGameObject();
+            return (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.RightArrow)
+            || Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.UpArrow));
 		}
 	}
 
@@ -97,6 +113,8 @@ public class FollowLookZoomCamera : MonoBehaviour
 	void Awake()
 	{
 		pivotEulers = pivot.rotation.eulerAngles;
+        ambientMover.StartPush();
+        ambientMover.StartRotation();
 	}
 
 	void Update () 
@@ -121,6 +139,7 @@ public class FollowLookZoomCamera : MonoBehaviour
 		if (!targetIsPhysicsObject)
 		{
 			FollowTarget();
+            DoAmbientLook();
 		}
 	}
 
@@ -138,14 +157,39 @@ public class FollowLookZoomCamera : MonoBehaviour
 	{
 		if (dragging)
 		{
+            if (!interacting)
+            {
+                lookAngle = transform.localRotation.eulerAngles.y;
+                tiltAngle = pivot.localRotation.eulerAngles.x;
+                if (tiltAngle > 180f) { tiltAngle -= 360f; }
+                tiltAngle = Mathf.Clamp( tiltAngle, tiltLimits.x, tiltLimits.y );
+            }
 			HandleRotationInput();
+            interacting = true;
 		}
 	}
+    
+    void DoAmbientLook ()
+    {
+        if (!dragging)
+        {
+            if (interacting)
+            {
+                ambientMover.StartPush();
+                ambientMover.StartRotation();
+            }
+            ambientMover.AmbientlyRotate();
+            interacting = false;
+        }
+    }
 
 	void HandleRotationInput ()
 	{
-		var x = CrossPlatformInputManager.GetAxis("Mouse X");
-		var y = CrossPlatformInputManager.GetAxis("Mouse Y");
+//		var x = CrossPlatformInputManager.GetAxis("Mouse X");
+//		var y = CrossPlatformInputManager.GetAxis("Mouse Y");
+
+        var x = (Input.GetKey(KeyCode.RightArrow) ? -1 : 0) + (Input.GetKey(KeyCode.LeftArrow) ? 1 : 0);
+		var y = (Input.GetKey(KeyCode.DownArrow) ? -1 : 0) + (Input.GetKey(KeyCode.UpArrow) ? 1 : 0);
 
 		lookAngle += x * lookSpeed;
 		tiltAngle -= y * lookSpeed;

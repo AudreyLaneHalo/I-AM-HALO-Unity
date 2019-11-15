@@ -44,11 +44,11 @@ public class PivotSwitcher : MonoBehaviour
         }
         else
         {
-            if (Input.GetKeyUp(KeyCode.UpArrow))
+            if (Input.GetKeyUp(KeyCode.Equals))
             {
                 SwitchToPivot(currentIndex + 1 >= pivots.Length ? 0 : currentIndex + 1);
             }
-            if (Input.GetKeyUp(KeyCode.DownArrow))
+            if (Input.GetKeyUp(KeyCode.Minus))
             {
                 SwitchToPivot(currentIndex - 1 < 0 ? pivots.Length - 1 : currentIndex - 1);
             }
@@ -67,7 +67,7 @@ public class PivotSwitcher : MonoBehaviour
 
         Debug.Log("Switch to " + pivots[index].name);
 
-        cameraMover.ambientlyRotate = false;
+//        cameraMover.ambientlyRotate = false;
 
         followSpline.Setup(transform.eulerAngles, pivots[index].transform.rotation, 
             currentPath.splineToNextPivot, currentPath.speed, FinishSwitching);
@@ -82,6 +82,6 @@ public class PivotSwitcher : MonoBehaviour
         switching = false;
 
         transform.position = pivots[currentIndex].transform.position;
-        cameraMover.ambientlyRotate = true;
+//        cameraMover.ambientlyRotate = true;
     }
 }

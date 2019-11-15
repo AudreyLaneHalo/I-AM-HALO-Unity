@@ -40,25 +40,35 @@ public class AmbientCameraMover : MonoBehaviour
             AmbientlyRotate();
         }
     }
+    
+    public void StartPush ()
+    {
+        startPush = observer.localPosition.magnitude;
+        goalPush = Mathf.Clamp(startPush + pushDirection * pushTime * 0.01f * pushSpeed * Random.value, zoomRange.x, zoomRange.y);
+        pushDirection *= -1;
+        lastPushTime = Time.time;
+        pushTime = Random.Range(2f, 4f);
+    }
+    
+    public void StartRotation ()
+    {
+        startRotation = transform.rotation;
+        goalRotation = Quaternion.Euler(transform.eulerAngles +  
+                                        new Vector3(Random.Range(-20f, 20f), rotateTime * rotateSpeed * Random.value, 0));
+        lastRotateTime = Time.time;
+        rotateTime = Random.Range(12f, 20f);
+    }
 
-    void AmbientlyRotate ()
+    public void AmbientlyRotate ()
     {
         if (Time.time - lastPushTime > pushTime)
         {
-            startPush = observer.localPosition.magnitude;
-            goalPush = Mathf.Clamp(startPush + pushDirection * pushTime * 0.01f * pushSpeed * Random.value, zoomRange.x, zoomRange.y);
-            pushDirection *= -1;
-            lastPushTime = Time.time;
-            pushTime = Random.Range(2f, 4f);
+            StartPush();
         }
 
         if (Time.time - lastRotateTime > rotateTime)
         {
-            startRotation = transform.rotation;
-            goalRotation = Quaternion.Euler(transform.eulerAngles +  
-                                            new Vector3(Random.Range(-20f, 20f), rotateTime * rotateSpeed * Random.value, 0));
-            lastRotateTime = Time.time;
-            rotateTime = Random.Range(12f, 20f);
+            StartRotation();
         }
 
         transform.rotation = Quaternion.Slerp(startRotation, goalRotation, Mathf.SmoothStep(0, 1f, (Time.time - lastRotateTime) / rotateTime));
