@@ -202,7 +202,7 @@ public class FollowLookZoomCamera : MonoBehaviour
         var x = (Input.GetKey(KeyCode.LeftArrow) ? -1 : 0) + (Input.GetKey(KeyCode.RightArrow) ? 1 : 0);
 		var y = (Input.GetKey(KeyCode.DownArrow) ? -1 : 0) + (Input.GetKey(KeyCode.UpArrow) ? 1 : 0);
 
-		lookAngle += x * lookSpeed * (Input.GetKey(KeyCode.Space) ? 10 : 1);
+		lookAngle += x * lookSpeed * (Input.GetKey(KeyCode.Space) ? 5 : 1);
 		tiltAngle -= y * lookSpeed;
 		tiltAngle = Mathf.Clamp( tiltAngle, tiltLimits.x, tiltLimits.y );
 
