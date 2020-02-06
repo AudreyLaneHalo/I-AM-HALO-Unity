@@ -5,24 +5,32 @@ using UnityEngine;
 [RequireComponent( typeof(AudioSource) )]
 public class MicrophoneClip : MonoBehaviour 
 {
-	bool debug = false;
-	string deviceName = "Built-in Microphone"; //"Living Room Speaker";
-
+	public bool listDevices = false;
+	public string preferredDeviceName = "Built-in Microphone";
+    string deviceName;
+    
 	void Start () 
 	{
-		if (debug)
+        List<string> devices = new List<string>( Microphone.devices );
+        
+		if (listDevices)
 		{
-			foreach (string device in Microphone.devices) 
+			foreach (string device in devices) 
 			{
 				Debug.Log("Audio device available: " + device);
 			}
 		}
-
-		if (new List<string>( Microphone.devices ).Find( s => s == deviceName ) == null)
+        
+        deviceName = preferredDeviceName;
+		if (devices.Find( s => s == deviceName ) == null)
 		{
 			Debug.LogWarning( "Can't find " + deviceName + "!" );
+            if (devices.Count > 0)
+            {
+                deviceName = devices[0];
+            }
 		}
-
+        
 		AudioSource audio = GetComponent<AudioSource>();
 		if (audio != null)
 		{
